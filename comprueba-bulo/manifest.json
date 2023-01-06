@@ -1,6 +1,6 @@
 {
     "name": "comprueba-bulo",
-    "description": "Verific si el texto de cualquier sitio web es información falsa.",
+    "description": "Verifica si el texto de cualquier sitio web es información falsa.",
     "version": "0.1.0",
     "manifest_version": 3,
     "icons": {
@@ -10,7 +10,7 @@
         "128": "icons/cheque-128px.png"
     },
     "action": {
-        "default_popup": "index.html",
+        "default_popup": "build/index.html",
         "default_title": "comprueba-bulo",
         "default_icon": {
             "16": "icons/cheque-16px.png",
@@ -18,5 +18,13 @@
             "32": "icons/cheque-32px.png",
             "128": "icons/cheque-128px.png"
         }
-    }
+    },
+    "content_scripts": [
+        {
+          "matches": ["<all_urls>"],
+          "js": [
+            "content.js"
+          ]
+        }
+      ]
 }
