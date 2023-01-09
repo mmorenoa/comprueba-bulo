@@ -1,3 +1,4 @@
+/*chrome global */
 import React, { useMemo } from "react"
 
 import { Colors } from "~src/components/colors"
@@ -6,9 +7,9 @@ import useCheckingData from "~src/components/useCheckingData"
 import { Container, Spinner, Text, TopBar } from "./components/styled"
 
 function IndexPopup() {
-  const highThreshold = 1;
-  const midHighThreshold = 4;
-  const midThreshold = 7.5;
+  const highThreshold = 1
+  const midHighThreshold = 4
+  const midThreshold = 7.5
 
   const avg = useCheckingData("")
   const isLoading = avg === undefined
