@@ -14,6 +14,7 @@ const useCheckingData = (textToCheck: string) => {
       .then((response) => response.json())
       .then((json) => {
         console.log(json)
+        console.log(textToCheck)
         setAvg(
           json.reduce((previous, current) => (current += previous)) /
             json.length

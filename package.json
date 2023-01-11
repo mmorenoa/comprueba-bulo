@@ -34,7 +34,10 @@
       "https://*/*"
     ],
     "permissions": [
-      "contextMenus"
+      "contextMenus",
+      "tabs",
+      "activeTab",
+      "scripting"
     ]
   }
 }

@@ -1,5 +1,4 @@
 /*global chrome*/
-/*global window*/
 export {}
 
 chrome.runtime.onInstalled.addListener(() => {
@@ -10,18 +9,30 @@ chrome.runtime.onInstalled.addListener(() => {
   })
 })
 
+function getSelectionText() {
+  return window.getSelection().toString();
+}
+
 chrome.contextMenus.onClicked.addListener(() => {
-  chrome.windows.create({
-    url: "popup.html",
-    type: "popup",
-    width: 450,
-    height: 168,
-    top: getTextPos()
+  chrome.tabs.query({ active: true }, (tabs) => {
+    chrome.scripting.executeScript(
+      {
+        target: { tabId: tabs[0].id },
+        func: getSelectionText
+      },
+      (selection) => {
+        const selectedText = selection[0].result;
+        console.log("Saved:" + selectedText)
+        if (selectedText !== "") {
+          chrome.storage.sync.set({ lastText: selectedText })
+        }
+      }
+    );
+    chrome.windows.create({
+      url: "popup.html",
+      type: "popup",
+      width: 450,
+      height: 168
+    })
   })
 })
-
-function getTextPos() {
-  if (typeof window !== 'undefined') {
-   return window.getSelection().getRangeAt(0).getBoundingClientRect().top
-  }
-}
