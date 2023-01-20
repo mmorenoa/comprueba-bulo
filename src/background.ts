@@ -10,7 +10,7 @@ chrome.runtime.onInstalled.addListener(() => {
 })
 
 function getSelectionText() {
-  return window.getSelection().toString();
+  return window.getSelection().toString()
 }
 
 chrome.contextMenus.onClicked.addListener(() => {
@@ -21,13 +21,16 @@ chrome.contextMenus.onClicked.addListener(() => {
         func: getSelectionText
       },
       (selection) => {
-        const selectedText = selection[0].result;
-        console.log("Saved:" + selectedText)
+        const selectedText = selection[0].result
         if (selectedText !== "") {
-          chrome.storage.sync.set({ lastText: selectedText })
+          chrome.storage.local.set({ lastText: selectedText })
+          chrome.storage.local.get("lastText", (data) => {
+            // Checking that the local variable is changing
+            console.log("Saved: " + data.lastText)
+          })
         }
       }
-    );
+    )
     chrome.windows.create({
       url: "popup.html",
       type: "popup",

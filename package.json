@@ -37,7 +37,9 @@
       "contextMenus",
       "tabs",
       "activeTab",
-      "scripting"
+      "scripting",
+      "storage",
+      "windows"
     ]
   }
 }
