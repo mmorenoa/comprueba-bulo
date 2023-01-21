@@ -1,5 +1,5 @@
 /* chrome global */
-import React, { useMemo } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 
 import { Colors } from "~src/components/colors"
 import useCheckingData from "~src/components/useCheckingData"
@@ -11,10 +11,15 @@ function IndexPopup() {
   const midHighThreshold = 4
   const midThreshold = 7.5
 
-  let avg = 0
-  chrome.storage.local.get("lastText", (data) => {
-    avg = useCheckingData(data.lastText)
-  })
+  const [selectedText, setSelectedText] = useState("")
+
+  useEffect(() => {
+    chrome.storage.local.get("lastText", (data) => {
+      setSelectedText(data.lastText)
+    })
+  }, [selectedText])
+
+  const avg = useCheckingData(selectedText)
   const isLoading = avg === undefined
 
   const reliability = useMemo(() => {
