@@ -31,7 +31,7 @@
   },
   "manifest": {
     "host_permissions": [
-      "https://*/*"
+      "<all_urls>"
     ],
     "permissions": [
       "contextMenus",
@@ -40,6 +40,11 @@
       "scripting",
       "storage",
       "windows"
-    ]
+    ],
+    "web_accessible_resources": [{
+      "resources": ["local-responses/respuesta mascarillas.json"],
+      "matches": [],
+      "extension_ids": []
+    }]
   }
 }

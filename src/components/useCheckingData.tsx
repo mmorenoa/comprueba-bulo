@@ -8,11 +8,11 @@ const useCheckingData = (textToCheck: string) => {
   )
     .then((response) => response.json())
     .then((json) => {
-      console.log(json)
-      const entailment = json.Related_hoaxes.map((x) => {
+      console.log(json.Entailment_hoaxes)
+      const entailment = json.Entailment_hoaxes.map((x) => {
         return x.Entailment_probabilities.Entailment // Meto el valor "Entailment" de cada objeto que esté dentro de Related_hoaxes en un array.
       })
-      avg = entailment.reduce((previous, current) => (current += previous)) / json.length
+      avg = entailment.reduce((previous, current) => (current += previous)) / entailment.length
     })
     .catch((error) => console.log(error))
   return avg
