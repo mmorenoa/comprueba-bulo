@@ -1,6 +1,6 @@
 {
   "name": "comprueba-bulo",
-  "displayName": "Comprueba bulo",
+  "displayName": "Verificar texto",
   "version": "0.0.0",
   "description": "A basic Plasmo extension.",
   "author": "manu1",
@@ -42,7 +42,7 @@
       "windows"
     ],
     "web_accessible_resources": [{
-      "resources": ["local-responses/respuesta mascarillas.json"],
+      "resources": ["local-responses"],
       "matches": [],
       "extension_ids": []
     }]

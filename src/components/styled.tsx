@@ -60,5 +60,5 @@ export const Spinner = styled.div`
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  margin: 0 auto;
+  margin: 2em auto;
 `

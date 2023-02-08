@@ -3,7 +3,6 @@ import React, { useEffect, useMemo, useState } from "react"
 
 import { Colors } from "~src/components/colors"
 
-
 import { Container, Spinner, Text, TopBar } from "./components/styled"
 
 function IndexPopup() {
@@ -12,6 +11,7 @@ function IndexPopup() {
   const midThreshold = 0.75
 
   const [avg, setAvg] = useState(undefined)
+  const entailment = []
 
   useEffect(() => {
     chrome.storage.local.get("lastText", (data) => {
@@ -23,23 +23,22 @@ function IndexPopup() {
             mode: 'no-cors'
           }
       )*/
-      fetch(
-        chrome.runtime.getURL('local-responses/respuesta mascarillas.json'),
-        {
-          mode: "no-cors"
-        }
-      )
+      fetch(chrome.runtime.getURL("local-responses/respuesta vacunas.json"), {
+        mode: "no-cors"
+      })
         .then((response) => response.json())
         .then((json) => {
-          console.log(json.Entailment_hoaxes);
-          const entailment = json.Entailment_hoaxes.map((x) => {
-            return x.Entailment_probabilities.Entailment // Meto el valor "Entailment" de cada objeto que esté dentro de Related_hoaxes en un array.
-          })
+          console.log(json.Entailment_hoaxes)
+          json.Entailment_hoaxes.length > 0
+            ? json.Entailment_hoaxes.map((x) => {
+                entailment.push(x.Entailment_probabilities.Entailment) // Meto el valor "Entailment" de cada objeto que esté dentro de Entailment_hoaxes en un array.
+              })
+            : entailment.push(0) // Si el array Entailment_hoaxes del JSON que me da el servidor está vacío, meto al array de valores entailment un 0.
           setAvg(
             entailment.reduce((previous, current) => (current += previous)) /
-              entailment.length
+              entailment.length // Se calcula la media de los valores del array devuelto por la constante entailment.
           )
-          console.log(`avg: ${avg}`);
+          console.log(`avg: ${avg}`)
         })
         .catch((error) => console.log(error))
     })
@@ -56,8 +55,10 @@ function IndexPopup() {
 
   const reliabilityText = useMemo(() => {
     if (avg < highThreshold) return "¡Información verídica!"
-    if (avg >= highThreshold && avg < midHighThreshold) return "¡Cógelo con pinzas!"
-    if (avg >= midHighThreshold && avg < midThreshold) return "¡Mejor no te fíes!"
+    if (avg >= highThreshold && avg < midHighThreshold)
+      return "¡Información dudosa!"
+    if (avg >= midHighThreshold && avg < midThreshold)
+      return "¡Información no muy fiable!"
     return "¡Información falsa!"
   }, [avg])
 
