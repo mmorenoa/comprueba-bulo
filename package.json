@@ -1,0 +1,50 @@
+{
+  "name": "comprueba-bulo",
+  "displayName": "Verificar texto",
+  "version": "0.0.0",
+  "description": "A basic Plasmo extension.",
+  "author": "manu1",
+  "packageManager": "npm@9.1.2",
+  "scripts": {
+    "dev": "plasmo dev",
+    "build": "plasmo build",
+    "package": "plasmo package"
+  },
+  "dependencies": {
+    "plasmo": "0.61.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "styled-components": "^5.3.6"
+  },
+  "devDependencies": {
+    "@plasmohq/prettier-plugin-sort-imports": "3.6.0",
+    "@types/chrome": "0.0.202",
+    "@types/node": "18.11.9",
+    "@types/react": "18.0.25",
+    "@types/react-dom": "18.0.9",
+    "@typescript-eslint/eslint-plugin": "^5.48.0",
+    "@typescript-eslint/parser": "^5.48.0",
+    "eslint": "^8.31.0",
+    "eslint-plugin-react": "^7.31.11",
+    "prettier": "2.7.1",
+    "typescript": "4.9.3"
+  },
+  "manifest": {
+    "host_permissions": [
+      "<all_urls>"
+    ],
+    "permissions": [
+      "contextMenus",
+      "tabs",
+      "activeTab",
+      "scripting",
+      "storage",
+      "windows"
+    ],
+    "web_accessible_resources": [{
+      "resources": ["local-responses"],
+      "matches": [],
+      "extension_ids": []
+    }]
+  }
+}
