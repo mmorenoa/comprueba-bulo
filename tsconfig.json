@@ -4,7 +4,8 @@
   "include": ["./src/*.ts", "./src/*.tsx"],
   "compilerOptions": {
     "paths": {
-      "~*": ["./*"]
+      "~*": ["./*"],
+      "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"]
     },
     "baseUrl": "."
   }

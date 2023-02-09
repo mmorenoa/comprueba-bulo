@@ -1,8 +1,11 @@
 /* chrome global */
+
+import { Grid } from "@mui/material"
 import React, { useEffect, useMemo, useState } from "react"
 
 import { Colors } from "~src/components/colors"
 
+import LinkPreview from "./components/LinkPreview"
 import { Container, Spinner, Text, TopBar } from "./components/styled"
 
 function IndexPopup() {
@@ -11,34 +14,45 @@ function IndexPopup() {
   const midThreshold = 0.75
 
   const [avg, setAvg] = useState(undefined)
-  const entailment = []
+  const [entailmentValues, setEntailmentValues] = useState([])
+  const [factCheckers, setFactCheckers] = useState([])
 
   useEffect(() => {
     chrome.storage.local.get("lastText", (data) => {
       /*fetch(
-        "http://g1.etsisi.upm.es:8835/fact_checking/entailment?" +
+        "http://g1.etsisi.upm.es:8835/fact_checking/entailment" +
           new URLSearchParams({
             text: data.lastText
           }), {
             mode: 'no-cors'
           }
       )*/
-      fetch(chrome.runtime.getURL("local-responses/respuesta vacunas.json"), {
-        mode: "no-cors"
-      })
+      fetch(
+        chrome.runtime.getURL("local-responses/respuesta mascarillas.json"),
+        {
+          mode: "no-cors"
+        }
+      )
         .then((response) => response.json())
         .then((json) => {
-          console.log(json.Entailment_hoaxes)
+          const factCheckers = []
           json.Entailment_hoaxes.length > 0
             ? json.Entailment_hoaxes.map((x) => {
-                entailment.push(x.Entailment_probabilities.Entailment) // Meto el valor "Entailment" de cada objeto que esté dentro de Entailment_hoaxes en un array.
+                setEntailmentValues([
+                  ...entailmentValues,
+                  x.Entailment_probabilities.Entailment
+                ]) // Meto el valor "Entailment" de cada objeto que esté dentro de Entailment_hoaxes en un array.
+                setFactCheckers([
+                  ...factCheckers,
+                  x.fact_checker_entailment.Link
+                ])
               })
-            : entailment.push(0) // Si el array Entailment_hoaxes del JSON que me da el servidor está vacío, meto al array de valores entailment un 0.
+            : setEntailmentValues([0]) // Si el array Entailment_hoaxes del JSON que me da el servidor está vacío, meto al array de valores entailment un 0.
           setAvg(
-            entailment.reduce((previous, current) => (current += previous)) /
-              entailment.length // Se calcula la media de los valores del array devuelto por la constante entailment.
+            entailmentValues.reduce(
+              (previous, current) => (current += previous)
+            ) / entailmentValues.length // Se calcula la media de los valores del array devuelto por la constante entailment.
           )
-          console.log(`avg: ${avg}`)
         })
         .catch((error) => console.log(error))
     })
@@ -85,6 +99,9 @@ function IndexPopup() {
         <Text weight="400">Fiabilidad: </Text>
         <Text color={color}>{reliability}</Text>
       </div>
+      <Grid container justifyContent="center" spacing={5} rowSpacing={5}>
+        {}
+      </Grid>
     </Container>
   )
 }
