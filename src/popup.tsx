@@ -15,20 +15,16 @@ function IndexPopup() {
 
   useEffect(() => {
     chrome.storage.local.get("lastText", (data) => {
-      /*fetch(
+      fetch(
         "http://g1.etsisi.upm.es:8835/fact_checking/entailment?" +
           new URLSearchParams({
             text: data.lastText
           }), {
             mode: 'no-cors'
           }
-      )*/
-      fetch(chrome.runtime.getURL("local-responses/respuesta vacunas.json"), {
-        mode: "no-cors"
-      })
+      )
         .then((response) => response.json())
         .then((json) => {
-          console.log(json.Entailment_hoaxes)
           json.Entailment_hoaxes.length > 0
             ? json.Entailment_hoaxes.map((x) => {
                 entailment.push(x.Entailment_probabilities.Entailment) // Meto el valor "Entailment" de cada objeto que esté dentro de Entailment_hoaxes en un array.
@@ -38,7 +34,6 @@ function IndexPopup() {
             entailment.reduce((previous, current) => (current += previous)) /
               entailment.length // Se calcula la media de los valores del array devuelto por la constante entailment.
           )
-          console.log(`avg: ${avg}`)
         })
         .catch((error) => console.log(error))
     })
