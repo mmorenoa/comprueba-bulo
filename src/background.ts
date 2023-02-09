@@ -34,7 +34,7 @@ chrome.contextMenus.onClicked.addListener(() => {
     chrome.windows.create({
       url: "popup.html",
       type: "popup",
-      width: 450,
+      width: 550,
       height: 168,
       top: 400,
       left: 800
