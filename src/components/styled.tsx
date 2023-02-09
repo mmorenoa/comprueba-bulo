@@ -13,6 +13,10 @@ Text.defaultProps = {
   weight: "600"
 }
 
+export const TextContainer = styled.div`
+  margin-bottom: 0.7rem;
+`
+
 export const Container = styled.div`
   @import url("https://fonts.googleapis.com/css2?family=Inter");
   font-family: "Inter", sans-serif;
@@ -28,7 +32,7 @@ export const Container = styled.div`
 
 export const TopBar = styled.div`
   background-color: ${(props) => props.color};
-  width: 100rem;
+  width: 100%;
   height: 0.3rem;
   position: absolute;
   top: 0;

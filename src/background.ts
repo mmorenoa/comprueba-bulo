@@ -35,7 +35,7 @@ chrome.contextMenus.onClicked.addListener(() => {
       url: "popup.html",
       type: "popup",
       width: 765,
-      height: 450,
+      height: 460,
       top: 400,
       left: 800
     })

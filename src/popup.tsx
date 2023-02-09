@@ -1,21 +1,28 @@
 /* chrome global */
 
-import { Grid } from "@mui/material"
 import React, { useEffect, useMemo, useState } from "react"
 
 import { Colors } from "~src/components/colors"
 
-import LinkPreview from "./components/LinkPreview"
-import { Container, Spinner, Text, TopBar } from "./components/styled"
+import Section from "./components/Section"
+import {
+  Container,
+  Spinner,
+  Text,
+  TextContainer,
+  TopBar
+} from "./components/styled"
 
 function IndexPopup() {
-  const highThreshold = 0.1
-  const midHighThreshold = 0.44
-  const midThreshold = 0.75
+  const HIGH_THRESHOLD = 0.1
+  const MID_HIDH_THRESHOLD = 0.44
+  const MID_THRESHOLD = 0.75
 
   const [avg, setAvg] = useState(undefined)
-  const [entailmentValues, setEntailmentValues] = useState([])
-  const [factCheckers, setFactCheckers] = useState([])
+  const [entailmentValues, setEntailmentValues] = useState({
+    entailmentValuesArr: []
+  })
+  const [factCheckers, setFactCheckers] = useState({ factCheckersArr: [] })
 
   useEffect(() => {
     chrome.storage.local.get("lastText", (data) => {
@@ -35,73 +42,78 @@ function IndexPopup() {
       )
         .then((response) => response.json())
         .then((json) => {
-          const factCheckers = []
-          json.Entailment_hoaxes.length > 0
-            ? json.Entailment_hoaxes.map((x) => {
-                setEntailmentValues([
-                  ...entailmentValues,
+          if (json.Entailment_hoaxes.length > 0) {
+            json.Entailment_hoaxes.map((x) => {
+              setEntailmentValues({
+                entailmentValuesArr: [
+                  ...entailmentValues.entailmentValuesArr,
                   x.Entailment_probabilities.Entailment
-                ]) // Meto el valor "Entailment" de cada objeto que esté dentro de Entailment_hoaxes en un array.
-                setFactCheckers([
-                  ...factCheckers,
+                ]
+              }) // Meto el valor "Entailment" de cada objeto que esté dentro de Entailment_hoaxes en un array.
+              setFactCheckers({
+                factCheckersArr: [
+                  ...factCheckers.factCheckersArr,
                   x.fact_checker_entailment.Link
-                ])
+                ]
               })
-            : setEntailmentValues([0]) // Si el array Entailment_hoaxes del JSON que me da el servidor está vacío, meto al array de valores entailment un 0.
+            })
+          } else {
+            setEntailmentValues({ entailmentValuesArr: [0] })
+          }
           setAvg(
-            entailmentValues.reduce(
+            entailmentValues.entailmentValuesArr.reduce(
               (previous, current) => (current += previous)
-            ) / entailmentValues.length // Se calcula la media de los valores del array devuelto por la constante entailment.
+            ) / entailmentValues.entailmentValuesArr.length // Se calcula la media de los valores del array devuelto por la constante entailment.
           )
+          console.log(avg)
+          console.log(factCheckers)
         })
         .catch((error) => console.log(error))
     })
-  }, [avg])
+  }, [avg, factCheckers])
 
   const isLoading = avg === undefined
 
   const reliability = useMemo(() => {
-    if (avg < highThreshold) return "Muy alta"
-    if (avg >= highThreshold && avg < midHighThreshold) return "Media - alta"
-    if (avg >= midHighThreshold && avg < midThreshold) return "Media"
+    if (avg < HIGH_THRESHOLD) return "Muy alta"
+    if (avg >= HIGH_THRESHOLD && avg < MID_HIDH_THRESHOLD) return "Media - alta"
+    if (avg >= MID_HIDH_THRESHOLD && avg < MID_THRESHOLD) return "Media"
     return "Baja"
   }, [avg])
 
   const reliabilityText = useMemo(() => {
-    if (avg < highThreshold) return "¡Información verídica!"
-    if (avg >= highThreshold && avg < midHighThreshold)
+    if (avg < HIGH_THRESHOLD) return "¡Información verídica!"
+    if (avg >= HIGH_THRESHOLD && avg < MID_HIDH_THRESHOLD)
       return "¡Información dudosa!"
-    if (avg >= midHighThreshold && avg < midThreshold)
+    if (avg >= MID_HIDH_THRESHOLD && avg < MID_THRESHOLD)
       return "¡Información no muy fiable!"
     return "¡Información falsa!"
   }, [avg])
 
   const color = useMemo(() => {
-    if (avg < highThreshold) return Colors.Green
-    if (avg >= highThreshold && avg < midHighThreshold) return Colors.Yellow
-    if (avg >= midHighThreshold && avg < midThreshold) return Colors.Orange
+    if (avg < HIGH_THRESHOLD) return Colors.Green
+    if (avg >= HIGH_THRESHOLD && avg < MID_HIDH_THRESHOLD) return Colors.Yellow
+    if (avg >= MID_HIDH_THRESHOLD && avg < MID_THRESHOLD) return Colors.Orange
     return Colors.Red
   }, [avg])
 
-  if (isLoading) {
-    return (
-      <Container>
-        <Spinner />
-      </Container>
-    )
-  }
-
   return (
     <Container>
-      <TopBar color={color} />
-      <Text>{reliabilityText}</Text>
-      <div>
-        <Text weight="400">Fiabilidad: </Text>
-        <Text color={color}>{reliability}</Text>
-      </div>
-      <Grid container justifyContent="center" spacing={5} rowSpacing={5}>
-        {}
-      </Grid>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          <TopBar color={color} />
+          <TextContainer>
+            <Text>{reliabilityText}</Text>
+            <div>
+              <Text weight="400">Fiabilidad: </Text>
+              <Text color={color}>{reliability}</Text>
+            </div>
+          </TextContainer>
+          <Section content={factCheckers.factCheckersArr} />
+        </>
+      )}
     </Container>
   )
 }
