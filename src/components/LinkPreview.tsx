@@ -11,7 +11,8 @@ import React, { useEffect, useState } from "react"
 const LinkPreview = (props) => {
   /*const [title, setTitle] = useState(undefined)
   const [image, setImage] = useState(undefined)
-  const [description, setDescription] = useState(undefined)
+  const [name, setName] = useState(undefined)
+  const [date, setDate] = useState(undefined)
   const [url, setUrl] = useState(undefined)
 
   useEffect(() => {
@@ -27,10 +28,11 @@ const LinkPreview = (props) => {
         console.log(json)
         setTitle(json.title)
         setImage(json.image)
-        setDescription(json.description)
+        setName(props.name)
+        setDate(props.date)
         setUrl(json.url)
       })
-  }, [title, image, description, url])*/
+  }, [title, image, name, date, url])*/
 
 
   return (

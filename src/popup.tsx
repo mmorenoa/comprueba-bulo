@@ -53,7 +53,11 @@ function IndexPopup() {
               setFactCheckers({
                 factCheckersArr: [
                   ...factCheckers.factCheckersArr,
-                  x.fact_checker_entailment.Link
+                  {
+                    name: x.fact_checker_entailment.Organisation,
+                    link: x.fact_checker_entailment.Link,
+                    date: x.fact_checker_entailment['Factchecking date']
+                  }
                 ]
               })
             })

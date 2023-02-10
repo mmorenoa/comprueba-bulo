@@ -9,15 +9,17 @@ const Section = (props) => {
     setContent(props.content)
   }, [content])
 
+  const listLinkPreviews = content.map((props) => (
+    <>
+      <Grid item>
+        <LinkPreview linkData={props} />
+      </Grid>
+    </>
+  ))
+
   return (
     <Grid container justifyContent="center" spacing={5} rowSpacing={5}>
-      {content.map((link) => (
-        <>
-          <Grid item xs={content.length === 1 ? 11 : 6}>
-            <LinkPreview link={link} />
-          </Grid>
-        </>
-      ))}
+      {listLinkPreviews}
     </Grid>
   )
 }
