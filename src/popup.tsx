@@ -19,10 +19,7 @@ function IndexPopup() {
   const MID_THRESHOLD = 0.75
 
   const [avg, setAvg] = useState(undefined)
-  const [entailmentValues, setEntailmentValues] = useState({
-    entailmentValuesArr: []
-  })
-  const [factCheckers, setFactCheckers] = useState({ factCheckersArr: [] })
+  const [factCheckers, setFactCheckers] = useState([])
 
   useEffect(() => {
     chrome.storage.local.get("lastText", (data) => {
@@ -42,41 +39,31 @@ function IndexPopup() {
       )
         .then((response) => response.json())
         .then((json) => {
-          if (json.Entailment_hoaxes.length > 0) {
-            json.Entailment_hoaxes.map((x) => {
-              setEntailmentValues({
-                entailmentValuesArr: [
-                  ...entailmentValues.entailmentValuesArr,
-                  x.Entailment_probabilities.Entailment
-                ]
-              }) // Meto el valor "Entailment" de cada objeto que esté dentro de Entailment_hoaxes en un array.
-              setFactCheckers({
-                factCheckersArr: [
-                  ...factCheckers.factCheckersArr,
-                  {
-                    name: x.fact_checker_entailment.Organisation,
-                    link: x.fact_checker_entailment.Link,
-                    date: x.fact_checker_entailment['Factchecking date']
-                  }
-                ]
-              })
-            })
-          } else {
-            setEntailmentValues({ entailmentValuesArr: [0] })
-          }
-          setAvg(
-            entailmentValues.entailmentValuesArr.reduce(
-              (previous, current) => (current += previous)
-            ) / entailmentValues.entailmentValuesArr.length // Se calcula la media de los valores del array devuelto por la constante entailment.
-          )
-          console.log(avg)
-          console.log(factCheckers)
+          manageEntailmentData(json.Entailment_hoaxes)
         })
         .catch((error) => console.log(error))
     })
-  }, [avg, factCheckers])
+  }, [avg])
 
   const isLoading = avg === undefined
+
+  const manageEntailmentData = (arr) => {
+    if (arr.length > 0) {
+      const avgResult =
+        arr.reduce(
+          (previous, current) =>
+            (current.Entailment_probabilities.Entailment +=
+              previous.Entailment_probabilities.Entailment)
+        ) / arr.length
+      setAvg(avgResult)
+      setFactCheckers(arr)
+    } else {
+      setAvg(0)
+      setFactCheckers(["Requiere verificación manual"])
+    }
+    console.log(avg)
+    console.log(factCheckers)
+  }
 
   const reliability = useMemo(() => {
     if (avg < HIGH_THRESHOLD) return "Muy alta"
@@ -115,7 +102,7 @@ function IndexPopup() {
               <Text color={color}>{reliability}</Text>
             </div>
           </TextContainer>
-          <Section content={factCheckers.factCheckersArr} />
+          <Section content={factCheckers} />
         </>
       )}
     </Container>

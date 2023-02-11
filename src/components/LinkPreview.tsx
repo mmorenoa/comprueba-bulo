@@ -6,14 +6,12 @@ import {
   CardMedia,
   Typography
 } from "@mui/material"
+import PropTypes from "prop-types"
 import React, { useEffect, useState } from "react"
 
 const LinkPreview = (props) => {
   /*const [title, setTitle] = useState(undefined)
   const [image, setImage] = useState(undefined)
-  const [name, setName] = useState(undefined)
-  const [date, setDate] = useState(undefined)
-  const [url, setUrl] = useState(undefined)
 
   useEffect(() => {
     fetch(
@@ -25,34 +23,42 @@ const LinkPreview = (props) => {
     )
       .then((res) => res.json())
       .then((json) => {
-        console.log(json)
         setTitle(json.title)
         setImage(json.image)
-        setName(props.name)
-        setDate(props.date)
-        setUrl(json.url)
       })
-  }, [title, image, name, date, url])*/
-
+  }, [title, image])*/
 
   return (
     <Card>
-      <CardMedia sx={{ height: 140 }} image=/*{image}*/"local-responses/Publicacio--n-falsa-mascarillas.png" />
+      <CardMedia
+        sx={{ height: 140 }}
+        image="local-responses/Publicacio--n-falsa-mascarillas.png"
+      />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-        What is Lorem Ipsum?
+          {props.linkData.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+          {props.linkData.name}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {props.linkData.date}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" href="https://www.lipsum.com/">
+        <Button size="small" href={props.linkData.link}>
           Ir a la noticia
         </Button>
       </CardActions>
     </Card>
   )
+}
+
+LinkPreview.propTypes = {
+  linkData: PropTypes.object,
+  link: PropTypes.string,
+  name: PropTypes.string,
+  date: PropTypes.string
 }
 
 export default LinkPreview
