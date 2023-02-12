@@ -46,7 +46,7 @@ const LinkPreview = (props) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" href={props.linkData.link}>
+        <Button size="small" href={props.linkData.url} target="_blank">
           Ir a la noticia
         </Button>
       </CardActions>

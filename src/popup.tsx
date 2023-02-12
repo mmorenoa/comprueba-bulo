@@ -1,23 +1,12 @@
 /* chrome global */
 
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useEffect, useState } from "react"
 
-import { Colors } from "~src/components/colors"
-
+import ReliabilityText from "./components/ReliabilityText"
 import Section from "./components/Section"
-import {
-  Container,
-  Spinner,
-  Text,
-  TextContainer,
-  TopBar
-} from "./components/styled"
+import { Container, Spinner } from "./components/styles/styled"
 
 function IndexPopup() {
-  const HIGH_THRESHOLD = 0.1
-  const MID_HIDH_THRESHOLD = 0.44
-  const MID_THRESHOLD = 0.75
-
   const [avg, setAvg] = useState(undefined)
   const [factCheckers, setFactCheckers] = useState([])
 
@@ -32,7 +21,7 @@ function IndexPopup() {
           }
       )*/
       fetch(
-        chrome.runtime.getURL("local-responses/respuesta mascarillas.json"),
+        chrome.runtime.getURL("local-responses/respuesta test antigenos.json"),
         {
           mode: "no-cors"
         }
@@ -59,34 +48,10 @@ function IndexPopup() {
       setFactCheckers(arr)
     } else {
       setAvg(0)
-      setFactCheckers(["Requiere verificación manual"])
     }
     console.log(avg)
     console.log(factCheckers)
   }
-
-  const reliability = useMemo(() => {
-    if (avg < HIGH_THRESHOLD) return "Muy alta"
-    if (avg >= HIGH_THRESHOLD && avg < MID_HIDH_THRESHOLD) return "Media - alta"
-    if (avg >= MID_HIDH_THRESHOLD && avg < MID_THRESHOLD) return "Media"
-    return "Baja"
-  }, [avg])
-
-  const reliabilityText = useMemo(() => {
-    if (avg < HIGH_THRESHOLD) return "¡Información verídica!"
-    if (avg >= HIGH_THRESHOLD && avg < MID_HIDH_THRESHOLD)
-      return "¡Información dudosa!"
-    if (avg >= MID_HIDH_THRESHOLD && avg < MID_THRESHOLD)
-      return "¡Información no muy fiable!"
-    return "¡Información falsa!"
-  }, [avg])
-
-  const color = useMemo(() => {
-    if (avg < HIGH_THRESHOLD) return Colors.Green
-    if (avg >= HIGH_THRESHOLD && avg < MID_HIDH_THRESHOLD) return Colors.Yellow
-    if (avg >= MID_HIDH_THRESHOLD && avg < MID_THRESHOLD) return Colors.Orange
-    return Colors.Red
-  }, [avg])
 
   return (
     <Container>
@@ -94,15 +59,8 @@ function IndexPopup() {
         <Spinner />
       ) : (
         <>
-          <TopBar color={color} />
-          <TextContainer>
-            <Text>{reliabilityText}</Text>
-            <div>
-              <Text weight="400">Fiabilidad: </Text>
-              <Text color={color}>{reliability}</Text>
-            </div>
-          </TextContainer>
-          <Section content={factCheckers} />
+          <ReliabilityText avg={avg} />
+          {avg > 0 ? <Section content={factCheckers} /> : ""}
         </>
       )}
     </Container>

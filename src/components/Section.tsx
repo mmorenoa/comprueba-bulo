@@ -13,11 +13,19 @@ const Section = (props) => {
   }, [])
 
   const makeEntailmentObjects = (arr) => {
-    const factCheckersObjArr = arr.map((item) => ({
-      name: item.fact_checker_entailment.Organisation,
-      date: item.fact_checker_entailment["Factchecking date"],
-      url: item.fact_checker_entailment.Link
-    }))
+    const factCheckersObjArr = arr.map((item) => {
+      if (arr.length > 0) {
+        return {
+          name: item.fact_checker_entailment.Organisation,
+          date: item.fact_checker_entailment["Factchecking date"],
+          url: item.fact_checker_entailment.Link
+        }
+      } else {
+        return {
+          name: item
+        }
+      }
+    })
     setContent(factCheckersObjArr)
   }
 
