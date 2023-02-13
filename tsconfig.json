@@ -1,21 +1,16 @@
 {
   "extends": "plasmo/templates/tsconfig.base",
-  "exclude": [
-    "node_modules"
-  ],
+  "exclude": ["node_modules"],
   "include": [
     ".plasmo/index.d.ts",
     "./src/*.ts",
-    "./src/*.tsx"
+    "./src/*.tsx",
+    "src/background.ts"
   ],
   "compilerOptions": {
     "paths": {
-      "~*": [
-        "./*"
-      ],
-      "@mui/styled-engine": [
-        "./node_modules/@mui/styled-engine-sc"
-      ]
+      "~*": ["./*"],
+      "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"]
     },
     "baseUrl": "."
   }

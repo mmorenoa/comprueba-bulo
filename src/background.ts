@@ -1,6 +1,20 @@
 /*global chrome*/
 export {}
 
+function getSelectionText() {
+  return window.getSelection().toString()
+}
+
+const updateWindowSize = (width, height) => {
+  chrome.windows.getCurrent((window) => {
+    const updateInfo = {
+      width: width,
+      height: height
+    }
+    chrome.windows.update(window.id, updateInfo)
+  })
+}
+
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: "factChecking",
@@ -8,10 +22,6 @@ chrome.runtime.onInstalled.addListener(() => {
     contexts: ["selection"]
   })
 })
-
-function getSelectionText() {
-  return window.getSelection().toString()
-}
 
 chrome.contextMenus.onClicked.addListener(() => {
   chrome.tabs.query({ active: true }, (tabs) => {
@@ -39,5 +49,12 @@ chrome.contextMenus.onClicked.addListener(() => {
       top: 400,
       left: 800
     })
+  })
+  chrome.runtime.onMessage.addListener((request) => {
+    if (request && request.action === "resizeWindowWithoutNews") {
+      updateWindowSize(600, 140)
+    } else {
+      updateWindowSize(765, 460)
+    }
   })
 })

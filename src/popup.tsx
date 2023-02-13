@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react"
 
+import { SendMessageToBackground } from "./background/SendMessageToBackground"
 import ReliabilityText from "./components/ReliabilityText"
 import Section from "./components/Section"
 import { Container, Spinner } from "./components/styles/styled"
@@ -34,8 +35,6 @@ function IndexPopup() {
     })
   }, [avg])
 
-  const isLoading = avg === undefined
-
   const manageEntailmentData = (arr) => {
     if (arr.length > 0) {
       const avgResult =
@@ -46,12 +45,14 @@ function IndexPopup() {
         ) / arr.length
       setAvg(avgResult)
       setFactCheckers(arr)
+      SendMessageToBackground("resizeWindowWithNews")
     } else {
       setAvg(0)
+      SendMessageToBackground("resizeWindowWithoutNews")
     }
-    console.log(avg)
-    console.log(factCheckers)
   }
+
+  const isLoading = avg === undefined
 
   return (
     <Container>
