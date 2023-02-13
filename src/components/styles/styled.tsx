@@ -1,3 +1,4 @@
+import { Card } from "@mui/material"
 import styled, { keyframes } from "styled-components"
 
 import { Colors } from "./colors"
@@ -65,3 +66,18 @@ export const Spinner = styled.div`
   border-radius: 50%;
   margin: 2em auto;
 `
+
+export const LinkTitle = styled(Text)`
+  font-size: 1.2rem;
+`
+
+export const LinkImage = styled.img`
+  width: 100%;
+  height: 70%;
+  border-radius: 22px 0 0;
+`
+
+export const LinkContainer = styled(Container)`
+  padding: 0
+`
+

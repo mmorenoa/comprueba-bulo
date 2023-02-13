@@ -22,7 +22,7 @@ function IndexPopup() {
           }
       )*/
       fetch(
-        chrome.runtime.getURL("local-responses/respuesta test antigenos.json"),
+        chrome.runtime.getURL("local-responses/respuesta mascarillas.json"),
         {
           mode: "no-cors"
         }

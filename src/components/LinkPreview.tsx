@@ -1,13 +1,12 @@
 import {
   Button,
-  Card,
   CardActions,
   CardContent,
   CardMedia,
-  Typography
 } from "@mui/material"
 import PropTypes from "prop-types"
 import React, { useEffect, useState } from "react"
+import { Container, LinkContainer, LinkImage, LinkTitle } from "./styles/styled"
 
 const LinkPreview = (props) => {
   /*const [title, setTitle] = useState(undefined)
@@ -29,28 +28,19 @@ const LinkPreview = (props) => {
   }, [title, image])*/
 
   return (
-    <Card>
-      <CardMedia
-        sx={{ height: 140 }}
-        image="local-responses/Publicacio--n-falsa-mascarillas.png"
+    <LinkContainer>
+      <LinkImage
+        src="local-responses/Publicacio--n-falsa-mascarillas.png"
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {props.linkData.name}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {props.linkData.name}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {props.linkData.date}
-        </Typography>
+        <LinkTitle>{props.linkData.name}</LinkTitle>
       </CardContent>
       <CardActions>
         <Button size="small" href={props.linkData.url} target="_blank">
           Ir a la noticia
         </Button>
       </CardActions>
-    </Card>
+    </LinkContainer>
   )
 }
 

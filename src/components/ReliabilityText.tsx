@@ -55,9 +55,9 @@ const ReliabilityText = (props) => {
         </>
       ) : (
         <>
-          <TopBar color={Colors.Blue} />
+          <TopBar />
           <TextContainer>
-            <Text color={Colors.Blue}>Requiere verificación manual</Text>
+            <Text>Requiere verificación manual</Text>
           </TextContainer>
         </>
       )}
