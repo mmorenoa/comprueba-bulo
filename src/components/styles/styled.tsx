@@ -1,3 +1,4 @@
+import { Grid } from "@mui/material"
 import styled, { keyframes } from "styled-components"
 
 import { Colors } from "./colors"
@@ -25,7 +26,6 @@ export const Container = styled.div`
   border-radius: 22px;
   border-color: ${Colors.Blue};
   text-align: center;
-  white-space: nowrap;
   padding: 1rem 2.7rem;
   overflow: hidden;
   position: relative;
@@ -70,8 +70,6 @@ export const Spinner = styled.div`
 
 export const LinkTitle = styled(Text)`
   font-size: 1.2rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
 `
 
 export const LinkSubtitle = styled(LinkTitle)`
@@ -83,11 +81,19 @@ export const LinkSubtitle = styled(LinkTitle)`
 export const LinkImage = styled.img`
   width: 100%;
   height: 70%;
-  border-radius: inherit 0;
 `
 
 export const LinkContainer = styled(Container)`
   padding: 0;
   text-align: left;
-  word-break: break-all;
+`
+
+export const LinkTitleContainer = styled(Grid)`
+  margin: 0 1rem;
+  padding: 1rem 1.7rem;
+`
+
+export const LinkDateNameContainer = styled(Grid)`
+  margin: 0 1rem;
+  padding: 0 1.7rem 1.7rem 1.7rem;
 `

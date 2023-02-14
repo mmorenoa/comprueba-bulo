@@ -1,13 +1,22 @@
-import { Button, CardActions, CardContent, CardMedia } from "@mui/material"
+import {
+  Button,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Grid
+} from "@mui/material"
 import PropTypes from "prop-types"
 import React, { useEffect, useState } from "react"
 
 import {
   Container,
   LinkContainer,
+  LinkDate,
+  LinkDateNameContainer,
   LinkImage,
   LinkSubtitle,
-  LinkTitle
+  LinkTitle,
+  LinkTitleContainer
 } from "./styles/styled"
 
 const LinkPreview = (props) => {
@@ -32,12 +41,24 @@ const LinkPreview = (props) => {
   return (
     <LinkContainer>
       <LinkImage src="local-responses/Publicacio--n-falsa-mascarillas.png" />
-      <CardContent>
-        <LinkTitle>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</LinkTitle>
-      </CardContent>
-      <CardContent>
-        <LinkSubtitle>Página web de la noticia</LinkSubtitle>
-      </CardContent>
+      <Grid container>
+        <LinkTitleContainer item xs={12}>
+          <LinkTitle>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry.
+          </LinkTitle>
+        </LinkTitleContainer>
+        <LinkDateNameContainer item xs={12}>
+          <Grid container>
+            <Grid item xs={6}>
+              <LinkSubtitle>Página web de la noticia</LinkSubtitle>
+            </Grid>
+            <Grid item xs={6} sx={{ textAlign: "right" }}>
+              <LinkSubtitle>Hace 4 días</LinkSubtitle>
+            </Grid>
+          </Grid>
+        </LinkDateNameContainer>
+      </Grid>
     </LinkContainer>
   )
 }
