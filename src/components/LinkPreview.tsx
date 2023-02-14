@@ -1,12 +1,14 @@
-import {
-  Button,
-  CardActions,
-  CardContent,
-  CardMedia,
-} from "@mui/material"
+import { Button, CardActions, CardContent, CardMedia } from "@mui/material"
 import PropTypes from "prop-types"
 import React, { useEffect, useState } from "react"
-import { Container, LinkContainer, LinkImage, LinkTitle } from "./styles/styled"
+
+import {
+  Container,
+  LinkContainer,
+  LinkImage,
+  LinkSubtitle,
+  LinkTitle
+} from "./styles/styled"
 
 const LinkPreview = (props) => {
   /*const [title, setTitle] = useState(undefined)
@@ -29,17 +31,13 @@ const LinkPreview = (props) => {
 
   return (
     <LinkContainer>
-      <LinkImage
-        src="local-responses/Publicacio--n-falsa-mascarillas.png"
-      />
+      <LinkImage src="local-responses/Publicacio--n-falsa-mascarillas.png" />
       <CardContent>
-        <LinkTitle>{props.linkData.name}</LinkTitle>
+        <LinkTitle>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</LinkTitle>
       </CardContent>
-      <CardActions>
-        <Button size="small" href={props.linkData.url} target="_blank">
-          Ir a la noticia
-        </Button>
-      </CardActions>
+      <CardContent>
+        <LinkSubtitle>Página web de la noticia</LinkSubtitle>
+      </CardContent>
     </LinkContainer>
   )
 }

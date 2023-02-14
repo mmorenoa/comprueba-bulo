@@ -1,4 +1,3 @@
-import { Card } from "@mui/material"
 import styled, { keyframes } from "styled-components"
 
 import { Colors } from "./colors"
@@ -15,7 +14,8 @@ Text.defaultProps = {
 }
 
 export const TextContainer = styled.div`
-  margin-bottom: 0.7rem;
+  margin-top: 0.7rem;
+  margin-bottom: 1.5rem;
 `
 
 export const Container = styled.div`
@@ -29,6 +29,7 @@ export const Container = styled.div`
   padding: 1rem 2.7rem;
   overflow: hidden;
   position: relative;
+  padding-bottom: 2.3rem;
 `
 
 export const TopBar = styled.div`
@@ -69,15 +70,24 @@ export const Spinner = styled.div`
 
 export const LinkTitle = styled(Text)`
   font-size: 1.2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+`
+
+export const LinkSubtitle = styled(LinkTitle)`
+  font-size: 0.9rem;
+  color: ${Colors.Secondary};
+  font-weight: 400;
 `
 
 export const LinkImage = styled.img`
   width: 100%;
   height: 70%;
-  border-radius: 22px 0 0;
+  border-radius: inherit 0;
 `
 
 export const LinkContainer = styled(Container)`
-  padding: 0
+  padding: 0;
+  text-align: left;
+  word-break: break-all;
 `
-

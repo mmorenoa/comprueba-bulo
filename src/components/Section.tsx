@@ -38,7 +38,7 @@ const Section = (props) => {
   ))
 
   return (
-    <Grid container justifyContent="center" spacing={5} rowSpacing={5}>
+    <Grid container justifyContent="center" spacing={5} rowSpacing={5} maxWidth="xl">
       {listLinkPreviews}
     </Grid>
   )

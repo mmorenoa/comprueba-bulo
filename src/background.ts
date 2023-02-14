@@ -44,7 +44,7 @@ chrome.contextMenus.onClicked.addListener(() => {
     chrome.windows.create({
       url: "popup.html",
       type: "popup",
-      width: 765,
+      width: 600,
       height: 460,
       top: 400,
       left: 800
@@ -54,7 +54,7 @@ chrome.contextMenus.onClicked.addListener(() => {
     if (request && request.action === "resizeWindowWithoutNews") {
       updateWindowSize(600, 140)
     } else {
-      updateWindowSize(765, 460)
+      updateWindowSize(600, 460)
     }
   })
 })
