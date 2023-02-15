@@ -31,6 +31,33 @@ const LinkPreview = (props) => {
         setImage(json.image)
       })
   }, [title, image])*/
+  const getAgeOfNew = (date) => {
+    console.log(date)
+    const newDate = new Date(date)
+    const todayDate = new Date()
+    console.log(newDate)
+    console.log(todayDate)
+    const age = todayDate.getTime() - newDate.getTime()
+    console.log(age)
+    const ageInDays = Math.floor(age / (1000 * 60 * 60 * 24)) // (ms * seg * min * horas)
+    const ageInWeeks = Math.floor(age / (1000 * 60 * 60 * 24 * 7)) // (ms * seg * min * hora * semana)
+    const ageInMonths = Math.floor(age / (1000 * 60 * 60 * 24 * 7 * 30)) // (ms * seg * min * horas * semana * mes)
+    const ageInYears = Math.floor(age / (1000 * 60 * 60 * 24 * 7 * 4 * 365)) // (ms * seg * min * horas * mes * año)
+
+    if (ageInDays > 6) {
+      if (ageInWeeks < 4) {
+        return `Hace ${ageInWeeks} semana${ageInWeeks == 1 ? "" : "s"}`
+      } else {
+        if (ageInMonths > 11) {
+          return `Hace ${ageInYears} año${ageInYears == 1 ? "" : "s"}`
+        } else {
+          return `Hace ${ageInMonths} mes${ageInMonths == 1 ? "" : "es"}`
+        }
+      }
+    } else {
+      return `Hace ${ageInDays} día${ageInDays == 1 ? "" : "s"}`
+    }
+  }
 
   return (
     <HyperLink href={props.linkData.url} target="_blank" rel="noreferrer">
@@ -60,7 +87,7 @@ const LinkPreview = (props) => {
                       paddingTop: "0.7rem"
                     }
                   }}>
-                  <LinkSubtitle>{props.linkData.date}</LinkSubtitle>
+                  <LinkSubtitle>{getAgeOfNew('14/02/2023')}</LinkSubtitle>
                 </Grid>
               </Grid>
             </LinkDateNameContainer>
