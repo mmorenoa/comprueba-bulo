@@ -97,3 +97,7 @@ export const LinkDateNameContainer = styled(Grid)`
   margin: 0 1rem;
   padding: 0 1.7rem 1.7rem 1.7rem;
 `
+
+export const HyperLink = styled.a`
+  text-decoration: none;
+`
