@@ -22,7 +22,7 @@ function IndexPopup() {
           }
       )*/
       fetch(
-        chrome.runtime.getURL("local-responses/respuesta mascarillas.json"),
+        chrome.runtime.getURL("local-responses/respuesta clima calido.json"),
         {
           mode: "no-cors"
         }
@@ -37,13 +37,17 @@ function IndexPopup() {
 
   const manageEntailmentData = (arr) => {
     if (arr.length > 0) {
-      const avgResult =
-        arr.reduce(
-          (previous, current) =>
-            (current.Entailment_probabilities.Entailment +=
-              previous.Entailment_probabilities.Entailment)
-        ) / arr.length
-      setAvg(avgResult)
+      if (arr.length === 1) {
+        setAvg(arr[0]["Entailment_probabilities"]["Entailment"])
+      } else {
+        const avgValues = arr.map((obj) => {
+          return obj["Entailment_probabilities"]["Entailment"]
+        })
+        const avgResult =
+          avgValues.reduce((previous, current) => (current += previous)) /
+          avgValues.length
+        setAvg(avgResult)
+      }
       setFactCheckers(arr)
       SendMessageToBackground("resizeWindowWithNews")
     } else {
