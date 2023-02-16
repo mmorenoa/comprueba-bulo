@@ -14,7 +14,7 @@ import {
 import theme from "./styles/theme"
 
 const LinkPreview = (props) => {
-  const [title, setTitle] = useState(undefined)
+  /*const [title, setTitle] = useState(undefined)
   const [image, setImage] = useState(undefined)
 
   useEffect(() => {
@@ -29,18 +29,21 @@ const LinkPreview = (props) => {
         setTitle(json.data.title)
         setImage(json.data.image.url)
       })
-  }, [title, image])
+  }, [title, image])*/
 
   const getAgeOfNew = (date) => {
-    const newDate = new Date(date)
+    console.log(date)
+    const dateValues = date.split("/")
+
+    const newDate = new Date(dateValues[2], dateValues[1] - 1, dateValues[0]) // (year, month (0 jan - 11 dec), day)
     const todayDate = new Date()
 
     const age = todayDate.getTime() - newDate.getTime()
 
-    const ageInDays = Math.floor(age / (1000 * 60 * 60 * 24)) // (ms * seg * min * horas)
-    const ageInWeeks = Math.floor(age / (1000 * 60 * 60 * 24 * 7)) // (ms * seg * min * hora * semana)
-    const ageInMonths = Math.floor(age / (1000 * 60 * 60 * 24 * 7 * 30)) // (ms * seg * min * horas * semana * mes)
-    const ageInYears = Math.floor(age / (1000 * 60 * 60 * 24 * 7 * 4 * 365)) // (ms * seg * min * horas * mes * año)
+    const ageInDays = Math.floor(age / (1000 * 60 * 60 * 24)) // (ms * seg * min * hours)
+    const ageInWeeks = Math.floor(age / (1000 * 60 * 60 * 24 * 7)) // (ms * seg * min * hours * weeks)
+    const ageInMonths = Math.floor(age / (1000 * 60 * 60 * 24 * 30)) // (ms * seg * min * hours * months)
+    const ageInYears = Math.floor(age / (1000 * 60 * 60 * 24 * 365)) // (ms * seg * min * hours * years)
 
     if (ageInDays > 6) {
       if (ageInWeeks < 4) {
