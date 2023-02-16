@@ -80,7 +80,7 @@ export const LinkSubtitle = styled(LinkTitle)`
 
 export const LinkImage = styled.img`
   width: 100%;
-  height: 70%;
+  height: 60%;
 `
 
 export const LinkContainer = styled(Container)`

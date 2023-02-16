@@ -14,23 +14,22 @@ import {
 import theme from "./styles/theme"
 
 const LinkPreview = (props) => {
-  /*const [title, setTitle] = useState(undefined)
+  const [title, setTitle] = useState(undefined)
   const [image, setImage] = useState(undefined)
 
   useEffect(() => {
     fetch(
-      "https://api.linkpreview.net?" +
+      "https://api.microlink.io/?" +
         new URLSearchParams({
-          key: "802794e69f6e682b104dd707cf08a9bd",
-          q: props.linkData.url
+          url: props.linkData.url
         })
     )
       .then((res) => res.json())
       .then((json) => {
-        setTitle(json.title)
-        setImage(json.image)
+        setTitle(json.data.title)
+        setImage(json.data.image.url)
       })
-  }, [title, image])*/
+  }, [title, image])
 
   const getAgeOfNew = (date) => {
     const newDate = new Date(date)

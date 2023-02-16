@@ -22,7 +22,7 @@ function IndexPopup() {
           }
       )*/
       fetch(
-        chrome.runtime.getURL("local-responses/respuesta clima calido.json"),
+        chrome.runtime.getURL("local-responses/respuesta agua caliente.json"),
         {
           mode: "no-cors"
         }
