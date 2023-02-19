@@ -32,7 +32,6 @@ const LinkPreview = (props) => {
   }, [title, image])*/
 
   const getAgeOfNew = (date) => {
-    console.log(date)
     const dateValues = date.split("/")
 
     const newDate = new Date(dateValues[2], dateValues[1] - 1, dateValues[0]) // (year, month (0 jan - 11 dec), day)

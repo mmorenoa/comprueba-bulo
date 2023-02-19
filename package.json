@@ -51,7 +51,7 @@
         "resources": [
           "local-responses"
         ],
-        "matches": [],
+        "matches": ["<all_urls>"],
         "extension_ids": []
       }
     ]

@@ -1,20 +1,6 @@
 /*global chrome*/
 export {}
 
-function getSelectionText() {
-  return window.getSelection().toString()
-}
-
-const updateWindowSize = (width, height) => {
-  chrome.windows.getCurrent((window) => {
-    const updateInfo = {
-      width: width,
-      height: height
-    }
-    chrome.windows.update(window.id, updateInfo)
-  })
-}
-
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: "factChecking",
@@ -24,6 +10,24 @@ chrome.runtime.onInstalled.addListener(() => {
 })
 
 chrome.contextMenus.onClicked.addListener(() => {
+  openExtension()
+})
+
+chrome.runtime.onMessage.addListener((request) => {
+  if (request && request.action === "open-extension") {
+    openExtension()
+  }
+})
+
+chrome.runtime.onMessage.addListener((request) => {
+  if (request && request.action === "resizeWindowWithoutNews") {
+    updateWindowSize(600, 140)
+  } else {
+    updateWindowSize(600, 460)
+  }
+})
+
+const openExtension = () =>
   chrome.tabs.query({ active: true }, (tabs) => {
     chrome.scripting.executeScript(
       {
@@ -50,11 +54,17 @@ chrome.contextMenus.onClicked.addListener(() => {
       left: 800
     })
   })
-  chrome.runtime.onMessage.addListener((request) => {
-    if (request && request.action === "resizeWindowWithoutNews") {
-      updateWindowSize(600, 140)
-    } else {
-      updateWindowSize(600, 460)
+
+function getSelectionText() {
+  return window.getSelection().toString()
+}
+
+const updateWindowSize = (width, height) => {
+  chrome.windows.getCurrent((window) => {
+    const updateInfo = {
+      width: width,
+      height: height
     }
+    chrome.windows.update(window.id, updateInfo)
   })
-})
+}
