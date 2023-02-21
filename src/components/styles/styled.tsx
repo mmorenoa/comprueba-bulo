@@ -113,12 +113,12 @@ export const FloatingButton = styled.button`
 
 export const FloatingButtonText = styled(Text)`
   font-size: 0.9rem;
-  font-weight: 400;
-  line-height: 1.95rem;
+  font-weight: 500;
+  line-height: 0.5rem;
   padding-right: 0.5rem;
 `
 
 export const Icon = styled.img`
   float: left;
-  padding: 0.5rem;
+  padding: 0.1rem 0.5rem;
 `
