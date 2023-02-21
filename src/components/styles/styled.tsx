@@ -101,3 +101,24 @@ export const LinkDateNameContainer = styled(Grid)`
 export const HyperLink = styled.a`
   text-decoration: none;
 `
+
+export const FloatingButton = styled.button`
+  border-radius: 22px;
+  @import url("https://fonts.googleapis.com/css2?family=Inter");
+  font-family: "Inter", sans-serif;
+  border: 1px solid;
+  border-radius: 10px;
+  background-color: white;
+`
+
+export const FloatingButtonText = styled(Text)`
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.95rem;
+  padding-right: 0.5rem;
+`
+
+export const Icon = styled.img`
+  float: left;
+  padding: 0.5rem;
+`

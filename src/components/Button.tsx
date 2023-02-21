@@ -1,5 +1,6 @@
 /*global chrome*/
 import React from "react"
+import { FloatingButton, FloatingButtonText, Icon } from "./styles/styled"
 
 const Button = () => {
   const openExtensionHandler = () => {
@@ -7,9 +8,10 @@ const Button = () => {
   }
 
   return (
-    <div>
-      <button id="button-popup" onClick={openExtensionHandler}>Abrir extensión</button>
-    </div>
+    <FloatingButton id="button-popup" onClick={openExtensionHandler}>
+      <Icon src={chrome.runtime.getURL("local-responses/check.png") } />
+      <FloatingButtonText>Verificar texto</FloatingButtonText>
+    </FloatingButton>
   )
 }
 export default Button

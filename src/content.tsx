@@ -11,7 +11,7 @@ window.addEventListener("mouseup", () => {
     //Si se hace "mouseup", hay algo seleccionado y además no se existe el botón, se crea el botón
     show(Button)
     console.log("Botón mostrado")
-  } else if (window.getSelection().toString() === "") {//Si se hace "mouseup", no hay nada algo seleccionado y además no se existe el botón, se crea el botón
+  } else if (window.getSelection().toString() === "" && document.getElementById("button-container")) {//Si se hace "mouseup", no hay nada algo seleccionado y además no se existe el botón, se crea el botón
     document.getElementById("button-container").remove()
     console.log("Botón eliminado")
   }
