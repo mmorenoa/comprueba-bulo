@@ -1,6 +1,7 @@
 import React from "react"
 
 import Button from "./Button"
+import GlobalStyle from "./styles/GlobalStyle"
 import { ButtonContainer } from "./styles/styled"
 
 const AnimatedButton = () => {
@@ -18,6 +19,7 @@ const AnimatedButton = () => {
 
   return (
     <ButtonContainer>
+      <GlobalStyle />
       <Button
         icon={chrome.runtime.getURL("local-responses/check.png")}
         text="Verificar texto"

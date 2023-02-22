@@ -98,13 +98,14 @@ export const HyperLink = styled.a`
 `
 
 export const FloatingButton = styled.button`
-  border-radius: inherit;
-  background-color: white;
-  display: inline-flex;
-  box-shadow: 0px 5px 20px -5px;
-  padding: 0.1rem 0;
-  border: 1px solid;
-  border-color: ${Colors.Blue};
+  border-radius: inherit !important;
+  background-color: white !important;
+  display: inline-flex !important;
+  box-shadow: 0px 5px 20px -5px !important;
+  padding: 2% 0 !important;
+  border: 1px solid !important;
+  border-color: ${Colors.Blue} !important;
+  cursor: pointer;
   ${({ secondary }) =>
     secondary &&
     `
@@ -119,19 +120,19 @@ export const FloatingButton = styled.button`
 `
 
 export const FloatingButtonText = styled(Text)`
-  font-size: 0.9rem;
-  font-weight: 500;
-  padding-right: 0.5rem;
+  font-size: 0.9rem !important;
+  font-weight: 500 !important;
+  padding-right: 0.5rem !important;
 `
 
 export const Icon = styled.img`
-  float: left;
-  padding: 0.15rem 0.5rem 0 0.5rem;
+  float: left !important;
+  padding: 1.5% 0.5rem 0 0.5rem !important;
 `
 
 export const ButtonContainer = styled.div`
-  border-radius: 22px;
   border-radius: 10px;
-  background-color: white;
-  display: contents;
+  background-color: white !important;
+  display: contents !important;
+  cursor: pointer !important;
 `

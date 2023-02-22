@@ -31,10 +31,14 @@ const showButton = (Element) => {
 
   // Agrega aquí la clase de estilo y otros atributos necesarios para el botón
   div.style.position = "absolute"
-  const seleccion = window.getSelection().getRangeAt(0)
-  const coordenadas = seleccion.getBoundingClientRect()
-  div.style.left = coordenadas.left + "px"
-  div.style.top = coordenadas.bottom + "px"
+  const range = window.getSelection().getRangeAt(0) // Obtiene el rango de la selección
+  const rect = range.getBoundingClientRect() // Obtiene las coordenadas del rango en relación al viewport
+  const scrollX = window.pageXOffset || document.documentElement.scrollLeft // Obtiene el desplazamiento horizontal de la página
+  const scrollY = window.pageYOffset || document.documentElement.scrollTop // Obtiene el desplazamiento vertical de la página
+  const posX = rect.left + scrollX // Obtiene la posición horizontal de la selección en relación a la página
+  const posY = rect.top + scrollY // Obtiene la posición vertical de la selección en relación a la página
+  div.style.left = posX + "px"
+  div.style.top = posY+20 + "px"
   document.body.appendChild(div)
   const root = createRoot(div)
   root.render(<Element />)
