@@ -7,13 +7,30 @@ chrome.runtime.onInstalled.addListener(() => {
     title: "Verificar texto",
     contexts: ["selection"]
   })
+  chrome.storage.local.set({ floatingButton: "enabled" }, () => {
+    console.log("Botón flotante habilitado.")
+  })
 })
 
-function getSelectionText() {
-  return window.getSelection().toString()
-}
-
 chrome.contextMenus.onClicked.addListener(() => {
+  openExtension()
+})
+
+chrome.runtime.onMessage.addListener((request) => {
+  if (request && request.action === "open-extension") {
+    openExtension()
+  }
+})
+
+chrome.runtime.onMessage.addListener((request) => {
+  if (request && request.action === "resizeWindowWithoutNews") {
+    updateWindowSize(600, 140)
+  } else {
+    updateWindowSize(600, 460)
+  }
+})
+
+const openExtension = () =>
   chrome.tabs.query({ active: true }, (tabs) => {
     chrome.scripting.executeScript(
       {
@@ -34,10 +51,23 @@ chrome.contextMenus.onClicked.addListener(() => {
     chrome.windows.create({
       url: "popup.html",
       type: "popup",
-      width: 550,
-      height: 168,
+      width: 600,
+      height: 460,
       top: 400,
       left: 800
     })
   })
-})
+
+function getSelectionText() {
+  return window.getSelection().toString()
+}
+
+const updateWindowSize = (width, height) => {
+  chrome.windows.getCurrent((window) => {
+    const updateInfo = {
+      width: width,
+      height: height
+    }
+    chrome.windows.update(window.id, updateInfo)
+  })
+}

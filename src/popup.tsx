@@ -1,85 +1,75 @@
 /* chrome global */
-import React, { useEffect, useMemo, useState } from "react"
 
-import { Colors } from "~src/components/colors"
+import React, { useEffect, useState } from "react"
 
-import { Container, Spinner, Text, TopBar } from "./components/styled"
+import { SendMessageToBackground } from "./background/SendMessageToBackground"
+import ReliabilityText from "./components/ReliabilityText"
+import Section from "./components/Section"
+import GlobalStyle from "./components/styles/GlobalStyle"
+import { Container, Spinner } from "./components/styles/styled"
 
 function IndexPopup() {
-  const highThreshold = 0.1
-  const midHighThreshold = 0.44
-  const midThreshold = 0.75
-
   const [avg, setAvg] = useState(undefined)
-  const entailment = []
+  const [factCheckers, setFactCheckers] = useState([])
 
   useEffect(() => {
     chrome.storage.local.get("lastText", (data) => {
-      fetch(
-        "http://g1.etsisi.upm.es:8835/fact_checking/entailment?" +
+      /*fetch(
+        "http://g1.etsisi.upm.es:8835/fact_checking/entailment" +
           new URLSearchParams({
             text: data.lastText
           }), {
             mode: 'no-cors'
           }
+      )*/
+      fetch(
+        chrome.runtime.getURL("local-responses/respuesta agua caliente.json"),
+        {
+          mode: "no-cors"
+        }
       )
         .then((response) => response.json())
         .then((json) => {
-          json.Entailment_hoaxes.length > 0
-            ? json.Entailment_hoaxes.map((x) => {
-                entailment.push(x.Entailment_probabilities.Entailment) // Meto el valor "Entailment" de cada objeto que esté dentro de Entailment_hoaxes en un array.
-              })
-            : entailment.push(0) // Si el array Entailment_hoaxes del JSON que me da el servidor está vacío, meto al array de valores entailment un 0.
-          setAvg(
-            entailment.reduce((previous, current) => (current += previous)) /
-              entailment.length // Se calcula la media de los valores del array devuelto por la constante entailment.
-          )
+          manageEntailmentData(json.Entailment_hoaxes)
         })
         .catch((error) => console.log(error))
     })
   }, [avg])
 
-  const isLoading = avg === undefined
-
-  const reliability = useMemo(() => {
-    if (avg < highThreshold) return "Muy alta"
-    if (avg >= highThreshold && avg < midHighThreshold) return "Media - alta"
-    if (avg >= midHighThreshold && avg < midThreshold) return "Media"
-    return "Baja"
-  }, [avg])
-
-  const reliabilityText = useMemo(() => {
-    if (avg < highThreshold) return "¡Información verídica!"
-    if (avg >= highThreshold && avg < midHighThreshold)
-      return "¡Información dudosa!"
-    if (avg >= midHighThreshold && avg < midThreshold)
-      return "¡Información no muy fiable!"
-    return "¡Información falsa!"
-  }, [avg])
-
-  const color = useMemo(() => {
-    if (avg < highThreshold) return Colors.Green
-    if (avg >= highThreshold && avg < midHighThreshold) return Colors.Yellow
-    if (avg >= midHighThreshold && avg < midThreshold) return Colors.Orange
-    return Colors.Red
-  }, [avg])
-
-  if (isLoading) {
-    return (
-      <Container>
-        <Spinner />
-      </Container>
-    )
+  const manageEntailmentData = (arr) => {
+    if (arr.length > 0) {
+      if (arr.length === 1) {
+        setAvg(arr[0]["Entailment_probabilities"]["Entailment"])
+      } else {
+        const avgValues = arr.map((obj) => {
+          return obj["Entailment_probabilities"]["Entailment"]
+        })
+        const avgResult =
+          avgValues.reduce((previous, current) => (current += previous)) /
+          avgValues.length
+        setAvg(avgResult)
+      }
+      setFactCheckers(arr)
+      SendMessageToBackground("resizeWindowWithNews")
+    } else {
+      setAvg(0)
+      SendMessageToBackground("resizeWindowWithoutNews")
+    }
   }
+
+  const isLoading = avg === undefined
 
   return (
     <Container>
-      <TopBar color={color} />
-      <Text>{reliabilityText}</Text>
-      <div>
-        <Text weight="400">Fiabilidad: </Text>
-        <Text color={color}>{reliability}</Text>
-      </div>
+      <GlobalStyle />
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          <ReliabilityText avg={avg} />
+          {avg > 0 ? <Section content={factCheckers} /> : ""}
+        </>
+      )}
     </Container>
   )
 }

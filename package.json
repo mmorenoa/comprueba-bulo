@@ -11,10 +11,15 @@
     "package": "plasmo package"
   },
   "dependencies": {
-    "plasmo": "0.61.4",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.11.8",
+    "@mui/styled-engine-sc": "^5.11.0",
+    "plasmo": "^0.64.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "styled-components": "^5.3.6"
+    "styled-components": "^5.3.6",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@plasmohq/prettier-plugin-sort-imports": "3.6.0",
@@ -41,10 +46,15 @@
       "storage",
       "windows"
     ],
-    "web_accessible_resources": [{
-      "resources": ["local-responses"],
-      "matches": [],
-      "extension_ids": []
-    }]
+    "web_accessible_resources": [
+      {
+        "resources": [
+          "local-responses/*.png",
+          "local-resources/*.json"
+        ],
+        "matches": ["<all_urls>"],
+        "extension_ids": []
+      }
+    ]
   }
 }
