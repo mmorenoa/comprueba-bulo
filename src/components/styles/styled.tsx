@@ -101,6 +101,7 @@ export const FloatingButton = styled.button`
   border-radius: inherit;
   background-color: white;
   display: inline-flex;
+  box-shadow: 0px 5px 20px -5px;
   padding: 0.1rem 0;
   border: 1px solid;
   border-color: ${Colors.Blue};
@@ -112,7 +113,7 @@ export const FloatingButton = styled.button`
     transition: all 0.2s linear 0s;
     ${ButtonContainer}:hover & {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateX(0);
     }
   `}
 `

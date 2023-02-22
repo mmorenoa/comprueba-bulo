@@ -9,8 +9,12 @@ window.addEventListener("mouseup", () => {
     !document.getElementById("button-container")
   ) {
     //Si se hace "mouseup", hay algo seleccionado y además no se existe el botón, se crea el botón
-    showButton(AnimatedButton)
-    console.log("Botón mostrado")
+    chrome.storage.local.get("floatingButton").then((buttonState) => {
+      if(buttonState.floatingButton === "enabled") {
+        showButton(AnimatedButton)
+        console.log("Botón mostrado")
+      }
+    })
   } else if (
     window.getSelection().toString() === "" &&
     document.getElementById("button-container")
@@ -33,10 +37,5 @@ const showButton = (Element) => {
   div.style.top = coordenadas.bottom + "px"
   document.body.appendChild(div)
   const root = createRoot(div)
-  root.render(
-    <Element
-      icon={chrome.runtime.getURL("local-responses/check.png")}
-      text="Verificar texto"
-    />
-  )
+  root.render(<Element />)
 }

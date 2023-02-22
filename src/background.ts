@@ -7,6 +7,9 @@ chrome.runtime.onInstalled.addListener(() => {
     title: "Verificar texto",
     contexts: ["selection"]
   })
+  chrome.storage.local.set({ floatingButton: "enabled" }, () => {
+    console.log("Botón flotante habilitado.")
+  })
 })
 
 chrome.contextMenus.onClicked.addListener(() => {

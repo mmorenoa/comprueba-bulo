@@ -4,19 +4,17 @@ import React from "react"
 
 import { FloatingButton, FloatingButtonText, Icon } from "./styles/styled"
 
-const Button = ({children, icon, text, secondary = false }: ButtonProps) => {
-  const openExtensionHandler = () => {
-    chrome.runtime.sendMessage({ action: "open-extension" })
-  }
+const Button = ({ icon, text, secondary = false, action}: ButtonProps) => {
+  
 
   return (
     <FloatingButton
       id="button-popup"
-      onClick={openExtensionHandler}
-      secondary={secondary}>
+      secondary={secondary}
+      onClick={action}
+      >
       <Icon src={icon} />
       <FloatingButtonText>{text}</FloatingButtonText>
-      {children}
     </FloatingButton>
   )
 }
@@ -25,7 +23,7 @@ interface ButtonProps {
   icon: unknown
   text: string
   secondary?: boolean
-  children?: unknown
+  action: () => void
 }
 
 export default Button
