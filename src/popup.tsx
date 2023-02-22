@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react"
 import { SendMessageToBackground } from "./background/SendMessageToBackground"
 import ReliabilityText from "./components/ReliabilityText"
 import Section from "./components/Section"
+import GlobalStyle from "./components/styles/GlobalStyle"
 import { Container, Spinner } from "./components/styles/styled"
 
 function IndexPopup() {
@@ -60,6 +61,7 @@ function IndexPopup() {
 
   return (
     <Container>
+      <GlobalStyle />
       {isLoading ? (
         <Spinner />
       ) : (

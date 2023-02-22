@@ -1,7 +1,7 @@
 import React from "react"
 import { createRoot } from "react-dom/client"
 
-import Button from "./components/Button"
+import AnimatedButton from "./components/AnimatedButton"
 
 window.addEventListener("mouseup", () => {
   if (
@@ -9,15 +9,19 @@ window.addEventListener("mouseup", () => {
     !document.getElementById("button-container")
   ) {
     //Si se hace "mouseup", hay algo seleccionado y además no se existe el botón, se crea el botón
-    show(Button)
+    showButton(AnimatedButton)
     console.log("Botón mostrado")
-  } else if (window.getSelection().toString() === "" && document.getElementById("button-container")) {//Si se hace "mouseup", no hay nada algo seleccionado y además no se existe el botón, se crea el botón
+  } else if (
+    window.getSelection().toString() === "" &&
+    document.getElementById("button-container")
+  ) {
+    //Si se hace "mouseup", no hay nada algo seleccionado y además no se existe el botón, se crea el botón
     document.getElementById("button-container").remove()
     console.log("Botón eliminado")
   }
 })
 
-const show = (element) => {
+const showButton = (Element) => {
   const div = document.createElement("div")
   div.setAttribute("id", "button-container")
 
@@ -27,9 +31,12 @@ const show = (element) => {
   const coordenadas = seleccion.getBoundingClientRect()
   div.style.left = coordenadas.left + "px"
   div.style.top = coordenadas.bottom + "px"
-
   document.body.appendChild(div)
   const root = createRoot(div)
-  const DOMelement = element
-  root.render(<DOMelement />)
+  root.render(
+    <Element
+      icon={chrome.runtime.getURL("local-responses/check.png")}
+      text="Verificar texto"
+    />
+  )
 }

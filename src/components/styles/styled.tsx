@@ -1,49 +1,49 @@
 import { Grid } from "@mui/material"
-import styled, { keyframes } from "styled-components"
+import styled, { css, keyframes } from "styled-components"
 
+import Button from "../Button"
 import { Colors } from "./colors"
 
 export const Text = styled.span`
   font-size: 2rem;
-  color: ${(props) => props.color};
-  font-weight: ${(props) => props.weight};
+  color: ${(props) => props.color || Colors.Blue};
+  font-weight: ${(props) => props.weight || 600};
 `
-
-Text.defaultProps = {
-  color: Colors.Blue,
-  weight: "600"
-}
 
 export const TextContainer = styled.div`
   margin-top: 0.7rem;
   margin-bottom: 1.5rem;
 `
 
-export const Container = styled.div`
-  @import url("https://fonts.googleapis.com/css2?family=Inter");
-  font-family: "Inter", sans-serif;
+const ContainerStyles = css`
   border: 2px solid;
   border-radius: 22px;
-  border-color: ${Colors.Blue};
   text-align: center;
-  padding: 1rem 2.7rem;
   overflow: hidden;
   position: relative;
   padding-bottom: 2.3rem;
+  border-color: ${Colors.Secondary};
+`
+
+export const Container = styled.div`
+  ${ContainerStyles}
+  padding: 1rem 2.7rem;
+`
+
+export const LinkContainer = styled(Container)`
+  ${ContainerStyles}
+  padding: 0;
+  text-align: left;
 `
 
 export const TopBar = styled.div`
-  background-color: ${(props) => props.color};
+  background-color: ${(props) => props.color || Colors.Blue};
   width: 100%;
   height: 0.3rem;
   position: absolute;
   top: 0;
   right: 0;
 `
-
-TopBar.defaultProps = {
-  color: Colors.Blue
-}
 
 const rotate360 = keyframes`
   from {
@@ -83,11 +83,6 @@ export const LinkImage = styled.img`
   height: 60%;
 `
 
-export const LinkContainer = styled(Container)`
-  padding: 0;
-  text-align: left;
-`
-
 export const LinkTitleContainer = styled(Grid)`
   margin: 0 1rem;
   padding: 1rem 1.7rem;
@@ -103,22 +98,39 @@ export const HyperLink = styled.a`
 `
 
 export const FloatingButton = styled.button`
-  border-radius: 22px;
-  @import url("https://fonts.googleapis.com/css2?family=Inter");
-  font-family: "Inter", sans-serif;
-  border: 1px solid;
-  border-radius: 10px;
+  border-radius: inherit;
   background-color: white;
+  display: inline-flex;
+  padding: 0.1rem 0;
+  border: 1px solid;
+  border-color: ${Colors.Blue};
+  ${({ secondary }) =>
+    secondary &&
+    `
+    opacity: 0;
+    transform: translateX(-80%);
+    transition: all 0.2s linear 0s;
+    ${ButtonContainer}:hover & {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  `}
 `
 
 export const FloatingButtonText = styled(Text)`
   font-size: 0.9rem;
   font-weight: 500;
-  line-height: 0.5rem;
   padding-right: 0.5rem;
 `
 
 export const Icon = styled.img`
   float: left;
-  padding: 0.1rem 0.5rem;
+  padding: 0.15rem 0.5rem 0 0.5rem;
+`
+
+export const ButtonContainer = styled.div`
+  border-radius: 22px;
+  border-radius: 10px;
+  background-color: white;
+  display: contents;
 `
