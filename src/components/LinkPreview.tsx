@@ -63,7 +63,7 @@ const LinkPreview = (props) => {
     <HyperLink href={props.linkData.url} target="_blank" rel="noreferrer">
       <ThemeProvider theme={customBreakpoints}>
         <LinkContainer>
-          <LinkImage src="local-responses/Publicacio--n-falsa-mascarillas.png" />
+          <LinkImage src="icons/Publicacio--n-falsa-mascarillas.png" />
           <Grid container>
             <LinkTitleContainer item xs={12}>
               <LinkTitle>

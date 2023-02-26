@@ -41,7 +41,7 @@ const Settings = () => {
           <Grid item xs={1}>
             <Icon
               src={chrome.runtime.getURL(
-                "local-responses/luna-creciente128.png"
+                "icons/luna-creciente128.png"
               )}
             />
           </Grid>
@@ -56,7 +56,7 @@ const Settings = () => {
           </Grid>
           <Grid item xs={1}>
             <Icon
-              src={chrome.runtime.getURL("local-responses/cheque128.png")}
+              src={chrome.runtime.getURL("icons/cheque128.png")}
             />
           </Grid>
           <Grid item xs={9}>

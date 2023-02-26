@@ -25,7 +25,7 @@ const Popup = () => {
           }
       )*/
       fetch(
-        chrome.runtime.getURL("local-responses/respuesta agua caliente.json"),
+        chrome.runtime.getURL("local-json-responses/respuesta agua caliente.json"),
         {
           mode: "no-cors"
         }

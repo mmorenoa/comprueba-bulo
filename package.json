@@ -50,8 +50,8 @@
     "web_accessible_resources": [
       {
         "resources": [
-          "local-responses/*.png",
-          "local-resources/*.json"
+          "icons/*.png",
+          "local-json-responses/*.json"
         ],
         "matches": [
           "<all_urls>"

@@ -17,13 +17,13 @@ const AnimatedButton = () => {
     <ThemeManager>
       <ButtonContainer>
         <Button
-          icon={chrome.runtime.getURL("local-responses/cheque24.png")}
+          icon={chrome.runtime.getURL("icons/cheque24.png")}
           text="Verificar texto"
           action={openExtensionHandler}
         />
         <Button
           secondary
-          icon={chrome.runtime.getURL("local-responses/setting.png")}
+          icon={chrome.runtime.getURL("icons/setting.png")}
           action={openOptions}
         />
       </ButtonContainer>
