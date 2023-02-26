@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material/styles"
 
-const theme = createTheme({
+export const customBreakpoints = createTheme({
   breakpoints: {
     values: {
       xs: 200,
@@ -11,5 +11,3 @@ const theme = createTheme({
     }
   }
 })
-
-export default theme

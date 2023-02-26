@@ -1,13 +1,16 @@
 /* chrome global */
 
 import React, { useEffect, useState } from "react"
+import { ThemeProvider } from "styled-components"
 
-import ReliabilityText from "./components/ReliabilityText"
-import Section from "./components/Section"
-import GlobalStyle from "./components/styles/GlobalStyle"
-import { Container, Spinner } from "./components/styles/styled"
+import { useTheme } from "~src/components/styles/ThemeContext"
 
-const IndexPopup = () => {
+import ReliabilityText from "../components/ReliabilityText"
+import Section from "../components/Section"
+import GlobalStyle from "../components/styles/GlobalStyle"
+import { Container, Spinner } from "../components/styles/styled"
+
+const Popup = () => {
   const [avg, setAvg] = useState(undefined)
   const [factCheckers, setFactCheckers] = useState([])
 
@@ -47,7 +50,7 @@ const IndexPopup = () => {
           avgValues.reduce((previous, current) => (current += previous)) /
           avgValues.length
         setAvg(avgResult)
-        chrome.runtime.sendMessage({action: "resize-window"})
+        chrome.runtime.sendMessage({ action: "resize-window" })
       }
       setFactCheckers(arr)
     } else {
@@ -56,20 +59,23 @@ const IndexPopup = () => {
   }
 
   const isLoading = avg === undefined
+  const theme = useTheme()
 
   return (
-    <Container>
-      <GlobalStyle />
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <>
-          <ReliabilityText avg={avg} />
-          {avg > 0 ? <Section content={factCheckers} /> : ""}
-        </>
-      )}
-    </Container>
+    <ThemeProvider theme={{ mode: theme.mode }}>
+      <Container>
+        <GlobalStyle />
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <>
+            <ReliabilityText avg={avg} />
+            {avg > 0 ? <Section content={factCheckers} /> : ""}
+          </>
+        )}
+      </Container>
+    </ThemeProvider>
   )
 }
 
-export default IndexPopup
+export default Popup

@@ -11,7 +11,7 @@ import {
   LinkTitle,
   LinkTitleContainer
 } from "./styles/styled"
-import theme from "./styles/theme"
+import { customBreakpoints } from "./styles/CustomGrid"
 
 const LinkPreview = (props) => {
   /*const [title, setTitle] = useState(undefined)
@@ -61,9 +61,9 @@ const LinkPreview = (props) => {
 
   return (
     <HyperLink href={props.linkData.url} target="_blank" rel="noreferrer">
-      <LinkContainer>
-        <LinkImage src="local-responses/Publicacio--n-falsa-mascarillas.png" />
-        <ThemeProvider theme={theme}>
+      <ThemeProvider theme={customBreakpoints}>
+        <LinkContainer>
+          <LinkImage src="local-responses/Publicacio--n-falsa-mascarillas.png" />
           <Grid container>
             <LinkTitleContainer item xs={12}>
               <LinkTitle>
@@ -82,7 +82,7 @@ const LinkPreview = (props) => {
                   sm={6}
                   sx={{
                     textAlign: "right",
-                    [theme.breakpoints.only("xs")]: {
+                    [customBreakpoints.breakpoints.only("xs")]: {
                       textAlign: "left",
                       paddingTop: "0.7rem"
                     }
@@ -94,8 +94,8 @@ const LinkPreview = (props) => {
               </Grid>
             </LinkDateNameContainer>
           </Grid>
-        </ThemeProvider>
-      </LinkContainer>
+        </LinkContainer>
+      </ThemeProvider>
     </HyperLink>
   )
 }

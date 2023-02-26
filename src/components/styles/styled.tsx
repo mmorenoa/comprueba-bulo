@@ -1,12 +1,12 @@
-import { Grid, Switch } from "@mui/material"
+import { Grid } from "@mui/material"
 import styled, { css, keyframes } from "styled-components"
 
-
 import { Colors } from "./colors"
+import { backgroundColor, linkContainerBackgroundColor, secondaryTextColor, textColor } from "./themeColors"
 
 export const Text = styled.span`
   font-size: 2rem;
-  color: ${(props) => props.color || Colors.Blue};
+  color: ${(props) => props.color || textColor};
   font-weight: ${(props) => props.weight || 600};
 `
 
@@ -22,7 +22,8 @@ const ContainerStyles = css`
   overflow: hidden;
   position: relative;
   padding-bottom: 2.3rem;
-  border-color: ${Colors.Secondary};
+  border-color: ${Colors.SecondaryText};
+  background-color: ${backgroundColor};
 `
 
 export const Container = styled.div`
@@ -34,10 +35,11 @@ export const LinkContainer = styled(Container)`
   ${ContainerStyles}
   padding: 0;
   text-align: left;
+  background-color: ${linkContainerBackgroundColor};
 `
 
 export const TopBar = styled.div`
-  background-color: ${(props) => props.color || Colors.Blue};
+  background-color: ${(props) => props.color || textColor};
   width: 100%;
   height: 0.3rem;
   position: absolute;
@@ -70,11 +72,12 @@ export const Spinner = styled.div`
 
 export const LinkTitle = styled(Text)`
   font-size: 1.2rem;
+  color: ${textColor};
 `
 
 export const LinkSubtitle = styled(LinkTitle)`
   font-size: 0.9rem;
-  color: ${Colors.Secondary};
+  color: ${secondaryTextColor};
   font-weight: 400;
 `
 
@@ -106,6 +109,7 @@ export const FloatingButton = styled.button`
   border: 1px solid;
   border-color: ${Colors.Blue};
   cursor: pointer;
+  background-color: ${backgroundColor};
   ${({ secondary }) =>
     secondary &&
     `
@@ -128,8 +132,7 @@ export const FloatingButtonText = styled(Text)`
   font-weight: 500;
   padding-right: 0.5rem;
   vertical-align: middle;
-  @import url("https://fonts.googleapis.com/css2?family=Inter");
-  font-family: "Inter", sans-serif !important;
+  color: ${textColor};
 `
 
 export const Icon = styled.img`
@@ -155,7 +158,7 @@ export const OptionsContainer = styled(Container)`
   }
   ${Text} {
     padding-left: 1rem;
-    font-size: 100%;
+    font-size: 1.1rem;
     font-weight: 500;
     line-height: 2.5rem;
   }
