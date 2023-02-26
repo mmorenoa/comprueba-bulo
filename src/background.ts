@@ -10,7 +10,7 @@ chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.local.set({ floatingButton: true }, () => {
     console.log("Botón flotante:" + true)
   })
-  chrome.storage.local.set({ themeMode: 'light' }, () => {
+  chrome.storage.local.set({ darkMode: false }, () => {
     console.log("Tema por defecto: light")
   })
 })

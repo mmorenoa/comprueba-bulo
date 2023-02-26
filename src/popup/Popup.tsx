@@ -62,7 +62,7 @@ const Popup = () => {
   const theme = useTheme()
 
   return (
-    <ThemeProvider theme={{ mode: theme.mode }}>
+    <ThemeProvider theme={theme}>
       <Container>
         <GlobalStyle />
         {isLoading ? (

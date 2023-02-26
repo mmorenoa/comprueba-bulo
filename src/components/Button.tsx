@@ -9,7 +9,7 @@ import { FloatingButton, FloatingButtonText, Icon } from "./styles/styled"
 const Button = ({ icon, text, secondary = false, action }: ButtonProps) => {
   const theme = useTheme()
   return (
-    <ThemeProvider theme={{ mode: theme.mode }}>
+    <ThemeProvider theme={theme}>
       <FloatingButton id="button-popup" secondary={secondary} onClick={action}>
         <Icon src={icon} />
         <FloatingButtonText>{text}</FloatingButtonText>

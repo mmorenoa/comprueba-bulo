@@ -33,31 +33,25 @@ const Settings = () => {
   const theme = useTheme()
 
   return (
-    <ThemeProvider theme={{ mode: theme.mode }}>
+    <ThemeProvider theme={theme}>
       <OptionsContainer>
         <GlobalStyle />
         <TopBar />
         <Grid container>
           <Grid item xs={1}>
-            <Icon
-              src={chrome.runtime.getURL(
-                "icons/luna-creciente128.png"
-              )}
-            />
+            <Icon src={chrome.runtime.getURL("icons/luna-creciente128.png")} />
           </Grid>
           <Grid item xs={9}>
             <Text>Modo oscuro</Text>
           </Grid>
           <Grid item xs={2}>
             <Switch
-              onChange={() => theme.toggle()}
-              checked={theme.mode === "dark"}
+              onChange={theme.toggleDarkMode}
+              checked={theme.darkMode === true}
             />
           </Grid>
           <Grid item xs={1}>
-            <Icon
-              src={chrome.runtime.getURL("icons/cheque128.png")}
-            />
+            <Icon src={chrome.runtime.getURL("icons/cheque128.png")} />
           </Grid>
           <Grid item xs={9}>
             <Text>Habilitar botón flotante</Text>
