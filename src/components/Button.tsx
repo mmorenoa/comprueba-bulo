@@ -4,15 +4,9 @@ import React from "react"
 
 import { FloatingButton, FloatingButtonText, Icon } from "./styles/styled"
 
-const Button = ({ icon, text, secondary = false, action}: ButtonProps) => {
-  
-
+const Button = ({ icon, text, secondary = false, action }: ButtonProps) => {
   return (
-    <FloatingButton
-      id="button-popup"
-      secondary={secondary}
-      onClick={action}
-      >
+    <FloatingButton id="button-popup" secondary={secondary} onClick={action}>
       <Icon src={icon} />
       <FloatingButtonText>{text}</FloatingButtonText>
     </FloatingButton>
@@ -21,7 +15,7 @@ const Button = ({ icon, text, secondary = false, action}: ButtonProps) => {
 
 interface ButtonProps {
   icon: unknown
-  text: string
+  text?: string
   secondary?: boolean
   action: () => void
 }

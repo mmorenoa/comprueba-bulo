@@ -52,7 +52,9 @@
           "local-responses/*.png",
           "local-resources/*.json"
         ],
-        "matches": ["<all_urls>"],
+        "matches": [
+          "<all_urls>"
+        ],
         "extension_ids": []
       }
     ]

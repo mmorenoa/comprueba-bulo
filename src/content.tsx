@@ -10,7 +10,7 @@ window.addEventListener("mouseup", () => {
   ) {
     //Si se hace "mouseup", hay algo seleccionado y además no se existe el botón, se crea el botón
     chrome.storage.local.get("floatingButton").then((buttonState) => {
-      if(buttonState.floatingButton === "enabled") {
+      if(buttonState.floatingButton === true) {
         showButton(AnimatedButton)
         console.log("Botón mostrado")
       }
@@ -31,6 +31,7 @@ const showButton = (Element) => {
 
   // Agrega aquí la clase de estilo y otros atributos necesarios para el botón
   div.style.position = "absolute"
+  div.style.display = "flex"
   const range = window.getSelection().getRangeAt(0) // Obtiene el rango de la selección
   const rect = range.getBoundingClientRect() // Obtiene las coordenadas del rango en relación al viewport
   const scrollX = window.pageXOffset || document.documentElement.scrollLeft // Obtiene el desplazamiento horizontal de la página

@@ -1,7 +1,7 @@
-import { Grid } from "@mui/material"
+import { Grid, Switch } from "@mui/material"
 import styled, { css, keyframes } from "styled-components"
 
-import Button from "../Button"
+
 import { Colors } from "./colors"
 
 export const Text = styled.span`
@@ -98,13 +98,13 @@ export const HyperLink = styled.a`
 `
 
 export const FloatingButton = styled.button`
-  border-radius: inherit !important;
-  background-color: white !important;
-  display: inline-flex !important;
-  box-shadow: 0px 5px 20px -5px !important;
-  padding: 2% 0 !important;
-  border: 1px solid !important;
-  border-color: ${Colors.Blue} !important;
+  border-radius: inherit;
+  background-color: white;
+  display: inline-block;
+  box-shadow: 0px 5px 20px -5px black !important;
+  padding: 2% 0;
+  border: 1px solid;
+  border-color: ${Colors.Blue};
   cursor: pointer;
   ${({ secondary }) =>
     secondary &&
@@ -116,23 +116,47 @@ export const FloatingButton = styled.button`
       opacity: 1;
       transform: translateX(0);
     }
+    ${Icon} {
+      padding-right: 0;
+      padding-top: 0;
+    }
   `}
 `
 
 export const FloatingButtonText = styled(Text)`
-  font-size: 0.9rem !important;
-  font-weight: 500 !important;
-  padding-right: 0.5rem !important;
+  font-size: 1rem;
+  font-weight: 500;
+  padding-right: 0.5rem;
+  vertical-align: middle;
+  @import url("https://fonts.googleapis.com/css2?family=Inter");
+  font-family: "Inter", sans-serif !important;
 `
 
 export const Icon = styled.img`
-  float: left !important;
-  padding: 1.5% 0.5rem 0 0.5rem !important;
+  float: left;
+  padding: 0 0.5rem;
 `
 
 export const ButtonContainer = styled.div`
   border-radius: 10px;
-  background-color: white !important;
-  display: contents !important;
-  cursor: pointer !important;
+  background-color: white;
+  display: contents;
+  cursor: pointer;
+`
+export const OptionsContainer = styled(Container)`
+  text-align: left;
+  padding: 0.6rem 1.2rem;
+  vertical-align: middle;
+  font-size: 1rem;
+  ${Icon} {
+    max-width: 23px;
+    min-width: 23px;
+    padding: 0.5rem 0 0.5rem 0.5rem;
+  }
+  ${Text} {
+    padding-left: 1rem;
+    font-size: 100%;
+    font-weight: 500;
+    line-height: 2.5rem;
+  }
 `

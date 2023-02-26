@@ -2,20 +2,19 @@
 
 import React, { useEffect, useState } from "react"
 
-import { SendMessageToBackground } from "./background/SendMessageToBackground"
 import ReliabilityText from "./components/ReliabilityText"
 import Section from "./components/Section"
 import GlobalStyle from "./components/styles/GlobalStyle"
 import { Container, Spinner } from "./components/styles/styled"
 
-function IndexPopup() {
+const IndexPopup = () => {
   const [avg, setAvg] = useState(undefined)
   const [factCheckers, setFactCheckers] = useState([])
 
   useEffect(() => {
     chrome.storage.local.get("lastText", (data) => {
       /*fetch(
-        "http://g1.etsisi.upm.es:8835/fact_checking/entailment" +
+        "http://g1.etsisi.upm.es:8835/fact_checking/entailment?" +
           new URLSearchParams({
             text: data.lastText
           }), {
@@ -48,12 +47,11 @@ function IndexPopup() {
           avgValues.reduce((previous, current) => (current += previous)) /
           avgValues.length
         setAvg(avgResult)
+        chrome.runtime.sendMessage({action: "resize-window"})
       }
       setFactCheckers(arr)
-      SendMessageToBackground("resizeWindowWithNews")
     } else {
       setAvg(0)
-      SendMessageToBackground("resizeWindowWithoutNews")
     }
   }
 
