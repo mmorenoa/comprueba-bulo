@@ -16,20 +16,20 @@ const Popup = () => {
 
   useEffect(() => {
     chrome.storage.local.get("lastText", (data) => {
-      /*fetch(
+      fetch(
         "http://g1.etsisi.upm.es:8835/fact_checking/entailment?" +
           new URLSearchParams({
             text: data.lastText
           }), {
             mode: 'no-cors'
           }
-      )*/
-      fetch(
+      )
+      /*fetch(
         chrome.runtime.getURL("local-json-responses/respuesta agua caliente.json"),
         {
           mode: "no-cors"
         }
-      )
+      )*/
         .then((response) => response.json())
         .then((json) => {
           manageEntailmentData(json.Entailment_hoaxes)
