@@ -11,10 +11,10 @@ import {
   LinkTitle,
   LinkTitleContainer
 } from "./styles/styled"
-import theme from "./styles/theme"
+import { customBreakpoints } from "./styles/CustomGrid"
 
 const LinkPreview = (props) => {
-  /*const [title, setTitle] = useState(undefined)
+  const [title, setTitle] = useState(undefined)
   const [image, setImage] = useState(undefined)
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const LinkPreview = (props) => {
         setTitle(json.data.title)
         setImage(json.data.image.url)
       })
-  }, [title, image])*/
+  }, [title, image])
 
   const getAgeOfNew = (date) => {
     const dateValues = date.split("/")
@@ -61,14 +61,13 @@ const LinkPreview = (props) => {
 
   return (
     <HyperLink href={props.linkData.url} target="_blank" rel="noreferrer">
-      <LinkContainer>
-        <LinkImage src="local-responses/Publicacio--n-falsa-mascarillas.png" />
-        <ThemeProvider theme={theme}>
+      <ThemeProvider theme={customBreakpoints}>
+        <LinkContainer>
+          <LinkImage src={image} />
           <Grid container>
             <LinkTitleContainer item xs={12}>
               <LinkTitle>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry.
+                {title}
               </LinkTitle>
             </LinkTitleContainer>
             <LinkDateNameContainer item xs={12}>
@@ -82,7 +81,7 @@ const LinkPreview = (props) => {
                   sm={6}
                   sx={{
                     textAlign: "right",
-                    [theme.breakpoints.only("xs")]: {
+                    [customBreakpoints.breakpoints.only("xs")]: {
                       textAlign: "left",
                       paddingTop: "0.7rem"
                     }
@@ -94,8 +93,8 @@ const LinkPreview = (props) => {
               </Grid>
             </LinkDateNameContainer>
           </Grid>
-        </ThemeProvider>
-      </LinkContainer>
+        </LinkContainer>
+      </ThemeProvider>
     </HyperLink>
   )
 }

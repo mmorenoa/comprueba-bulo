@@ -1,33 +1,35 @@
 /* chrome global */
 
 import React, { useEffect, useState } from "react"
+import { ThemeProvider } from "styled-components"
 
-import { SendMessageToBackground } from "./background/SendMessageToBackground"
-import ReliabilityText from "./components/ReliabilityText"
-import Section from "./components/Section"
-import GlobalStyle from "./components/styles/GlobalStyle"
-import { Container, Spinner } from "./components/styles/styled"
+import { useTheme } from "~src/components/styles/ThemeContext"
 
-function IndexPopup() {
+import ReliabilityText from "../components/ReliabilityText"
+import Section from "../components/Section"
+import GlobalStyle from "../components/styles/GlobalStyle"
+import { Container, Spinner } from "../components/styles/styled"
+
+const Popup = () => {
   const [avg, setAvg] = useState(undefined)
   const [factCheckers, setFactCheckers] = useState([])
 
   useEffect(() => {
     chrome.storage.local.get("lastText", (data) => {
-      /*fetch(
-        "http://g1.etsisi.upm.es:8835/fact_checking/entailment" +
+      fetch(
+        "http://g1.etsisi.upm.es:8835/fact_checking/entailment?" +
           new URLSearchParams({
             text: data.lastText
           }), {
             mode: 'no-cors'
           }
-      )*/
-      fetch(
-        chrome.runtime.getURL("local-responses/respuesta agua caliente.json"),
+      )
+      /*fetch(
+        chrome.runtime.getURL("local-json-responses/respuesta agua caliente.json"),
         {
           mode: "no-cors"
         }
-      )
+      )*/
         .then((response) => response.json())
         .then((json) => {
           manageEntailmentData(json.Entailment_hoaxes)
@@ -48,30 +50,32 @@ function IndexPopup() {
           avgValues.reduce((previous, current) => (current += previous)) /
           avgValues.length
         setAvg(avgResult)
+        chrome.runtime.sendMessage({ action: "resize-window" })
       }
       setFactCheckers(arr)
-      SendMessageToBackground("resizeWindowWithNews")
     } else {
       setAvg(0)
-      SendMessageToBackground("resizeWindowWithoutNews")
     }
   }
 
   const isLoading = avg === undefined
+  const theme = useTheme()
 
   return (
-    <Container>
-      <GlobalStyle />
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <>
-          <ReliabilityText avg={avg} />
-          {avg > 0 ? <Section content={factCheckers} /> : ""}
-        </>
-      )}
-    </Container>
+    <ThemeProvider theme={theme}>
+      <Container>
+        <GlobalStyle />
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <>
+            <ReliabilityText avg={avg} />
+            {avg > 0 ? <Section content={factCheckers} /> : ""}
+          </>
+        )}
+      </Container>
+    </ThemeProvider>
   )
 }
 
-export default IndexPopup
+export default Popup

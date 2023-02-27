@@ -1,27 +1,26 @@
 /*global chrome*/
 
 import React from "react"
+import { ThemeProvider } from "styled-components"
 
+import { useTheme } from "./styles/ThemeContext"
 import { FloatingButton, FloatingButtonText, Icon } from "./styles/styled"
 
-const Button = ({ icon, text, secondary = false, action}: ButtonProps) => {
-  
-
+const Button = ({ icon, text, secondary = false, action }: ButtonProps) => {
+  const theme = useTheme()
   return (
-    <FloatingButton
-      id="button-popup"
-      secondary={secondary}
-      onClick={action}
-      >
-      <Icon src={icon} />
-      <FloatingButtonText>{text}</FloatingButtonText>
-    </FloatingButton>
+    <ThemeProvider theme={theme}>
+      <FloatingButton id="button-popup" secondary={secondary} onClick={action}>
+        <Icon src={icon} />
+        <FloatingButtonText>{text}</FloatingButtonText>
+      </FloatingButton>
+    </ThemeProvider>
   )
 }
 
 interface ButtonProps {
   icon: unknown
-  text: string
+  text?: string
   secondary?: boolean
   action: () => void
 }

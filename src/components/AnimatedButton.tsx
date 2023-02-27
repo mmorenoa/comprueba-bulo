@@ -1,7 +1,7 @@
 import React from "react"
 
 import Button from "./Button"
-import GlobalStyle from "./styles/GlobalStyle"
+import { ThemeManager } from "./styles/ThemeContext"
 import { ButtonContainer } from "./styles/styled"
 
 const AnimatedButton = () => {
@@ -9,29 +9,25 @@ const AnimatedButton = () => {
     chrome.runtime.sendMessage({ action: "open-extension" })
   }
 
-  const disableFloatingButton = () => {
-    chrome.storage.local.set({ floatingButton: "disabled" }, () => {
-      document.getElementById("button-container").remove()
-      console.log("Botón eliminado")
-      console.log("Botón flotante deshabilitado")
-    })
+  const openOptions = () => {
+    chrome.runtime.sendMessage({ action: "open-options" })
   }
 
   return (
-    <ButtonContainer>
-      <GlobalStyle />
-      <Button
-        icon={chrome.runtime.getURL("local-responses/check.png")}
-        text="Verificar texto"
-        action={openExtensionHandler}
-      />
-      <Button
-        secondary
-        icon={chrome.runtime.getURL("local-responses/block.png")}
-        text="Deshabilitar botón"
-        action={disableFloatingButton}
-      />
-    </ButtonContainer>
+    <ThemeManager>
+      <ButtonContainer>
+        <Button
+          icon={chrome.runtime.getURL("icons/cheque24.png")}
+          text="Verificar texto"
+          action={openExtensionHandler}
+        />
+        <Button
+          secondary
+          icon={chrome.runtime.getURL("icons/setting.png")}
+          action={openOptions}
+        />
+      </ButtonContainer>
+    </ThemeManager>
   )
 }
 

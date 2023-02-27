@@ -7,8 +7,11 @@ chrome.runtime.onInstalled.addListener(() => {
     title: "Verificar texto",
     contexts: ["selection"]
   })
-  chrome.storage.local.set({ floatingButton: "enabled" }, () => {
-    console.log("Botón flotante habilitado.")
+  chrome.storage.local.set({ floatingButton: true }, () => {
+    console.log("Botón flotante:" + true)
+  })
+  chrome.storage.local.set({ darkMode: false }, () => {
+    console.log("Tema por defecto: light")
   })
 })
 
@@ -23,10 +26,15 @@ chrome.runtime.onMessage.addListener((request) => {
 })
 
 chrome.runtime.onMessage.addListener((request) => {
-  if (request && request.action === "resizeWindowWithoutNews") {
-    updateWindowSize(600, 140)
-  } else {
+  if (request && request.action === "resize-window") {
     updateWindowSize(600, 460)
+  }
+})
+
+
+chrome.runtime.onMessage.addListener((request) => {
+  if (request && request.action === "open-options") {
+    openOptions()
   }
 })
 
@@ -52,11 +60,22 @@ const openExtension = () =>
       url: "popup.html",
       type: "popup",
       width: 600,
-      height: 460,
+      height: 170,
       top: 400,
       left: 800
     })
   })
+
+const openOptions = () => {
+  chrome.windows.create({
+    url: "options.html",
+    type: "popup",
+    width: 384,
+    height: 160,
+    top: 400,
+    left: 800
+  })
+}
 
 function getSelectionText() {
   return window.getSelection().toString()
