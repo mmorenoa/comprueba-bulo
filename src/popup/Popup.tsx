@@ -64,7 +64,7 @@ const Popup = () => {
           <Spinner />
         ) : (
           <>
-            <ReliabilityText avg={0.95} />
+            <ReliabilityText avg={avg} />
             {avg > 0 ? <Section content={factCheckers} /> : ""}
           </>
         )}
