@@ -2,6 +2,7 @@ import { Grid, ThemeProvider } from "@mui/material"
 import PropTypes from "prop-types"
 import React, { useEffect, useState } from "react"
 
+import { customBreakpoints } from "./styles/CustomGrid"
 import {
   HyperLink,
   LinkContainer,
@@ -11,13 +12,12 @@ import {
   LinkTitle,
   LinkTitleContainer
 } from "./styles/styled"
-import { customBreakpoints } from "./styles/CustomGrid"
 
 const LinkPreview = (props) => {
   const [title, setTitle] = useState(undefined)
   const [image, setImage] = useState(undefined)
 
-  useEffect(() => {
+  /*useEffect(() => {
     fetch(
       "https://api.microlink.io/?" +
         new URLSearchParams({
@@ -29,7 +29,7 @@ const LinkPreview = (props) => {
         setTitle(json.data.title)
         setImage(json.data.image.url)
       })
-  }, [title, image])
+  }, [title, image])*/
 
   const getAgeOfNew = (date) => {
     const dateValues = date.split("/")
@@ -63,11 +63,12 @@ const LinkPreview = (props) => {
     <HyperLink href={props.linkData.url} target="_blank" rel="noreferrer">
       <ThemeProvider theme={customBreakpoints}>
         <LinkContainer>
-          <LinkImage src={image} />
+          <LinkImage src="icons/Publicacio--n-falsa-mascarillas.png" />
           <Grid container>
             <LinkTitleContainer item xs={12}>
               <LinkTitle>
-                {title}
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry.
               </LinkTitle>
             </LinkTitleContainer>
             <LinkDateNameContainer item xs={12}>

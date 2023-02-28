@@ -16,14 +16,15 @@ const Popup = () => {
 
   useEffect(() => {
     chrome.storage.local.get("lastText", (data) => {
-      fetch(
+      /*fetch(
         "http://g1.etsisi.upm.es:8835/fact_checking/entailment?" +
           new URLSearchParams({
             text: data.lastText
           }), {
             mode: 'no-cors'
           }
-      )
+      )*/
+      fetch("local-json-responses/respuesta agua caliente.json")
         .then((response) => response.json())
         .then((json) => {
           manageEntailmentData(json.Entailment_hoaxes)
@@ -63,7 +64,7 @@ const Popup = () => {
           <Spinner />
         ) : (
           <>
-            <ReliabilityText avg={avg} />
+            <ReliabilityText avg={0.95} />
             {avg > 0 ? <Section content={factCheckers} /> : ""}
           </>
         )}

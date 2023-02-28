@@ -128,23 +128,23 @@ export const FloatingButton = styled.button`
 `
 
 export const FloatingButtonText = styled(Text)`
-  font-size: 1rem;
-  font-weight: 500;
-  padding-right: 0.5rem;
-  vertical-align: middle;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  padding-right: 0.5rem !important;
+  vertical-align: middle !important;
   color: ${textColor};
 `
 
 export const Icon = styled.img`
-  float: left;
-  padding: 0 0.5rem;
+  float: left !important;
+  padding: 0 0.5rem !important;
 `
 
 export const ButtonContainer = styled.div`
-  border-radius: 10px;
+  border-radius: 10px !important;
   background-color: white;
-  display: contents;
-  cursor: pointer;
+  display: contents !important;
+  cursor: pointer !important;
 `
 export const OptionsContainer = styled(Container)`
   text-align: left;
