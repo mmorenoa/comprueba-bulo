@@ -13,6 +13,9 @@ chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.local.set({ darkMode: false }, () => {
     console.log("Tema por defecto: light")
   })
+  chrome.storage.local.set({ daltonicMode: 0 }, () => {
+    console.log("Tema de daltonismo: 0")
+  })
 })
 
 chrome.contextMenus.onClicked.addListener(() => {
@@ -70,8 +73,8 @@ const openOptions = () => {
   chrome.windows.create({
     url: "options.html",
     type: "popup",
-    width: 384,
-    height: 160,
+    width: 600,
+    height: 200,
     top: 400,
     left: 800
   })

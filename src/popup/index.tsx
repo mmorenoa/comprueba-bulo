@@ -1,13 +1,16 @@
 import React from "react"
 
-import { ThemeManager } from "../components/styles/ThemeContext"
+import { DaltonicModeThemeManager } from "../styles/accesibilityMode/AccesibilityThemeContext"
+import { DarkModeThemeManager } from "../styles/darkMode/DarkModeThemeContext"
 import Popup from "./Popup"
 
 const PopupIndex = () => {
   return (
-    <ThemeManager>
-      <Popup />
-    </ThemeManager>
+    <DarkModeThemeManager>
+      <DaltonicModeThemeManager>
+        <Popup />
+      </DaltonicModeThemeManager>
+    </DarkModeThemeManager>
   )
 }
 

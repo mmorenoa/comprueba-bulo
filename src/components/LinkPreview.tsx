@@ -1,8 +1,7 @@
 import { Grid, ThemeProvider } from "@mui/material"
-import PropTypes from "prop-types"
 import React, { useEffect, useState } from "react"
 
-import { customBreakpoints } from "./styles/CustomGrid"
+import { customBreakpoints } from "../styles/CustomGrid"
 import {
   HyperLink,
   LinkContainer,
@@ -11,9 +10,9 @@ import {
   LinkSubtitle,
   LinkTitle,
   LinkTitleContainer
-} from "./styles/styled"
+} from "../styles/styled"
 
-const LinkPreview = (props) => {
+const LinkPreview = ({link: {url, name, date}}: linkProps) => {
   const [title, setTitle] = useState(undefined)
   const [image, setImage] = useState(undefined)
 
@@ -21,7 +20,7 @@ const LinkPreview = (props) => {
     fetch(
       "https://api.microlink.io/?" +
         new URLSearchParams({
-          url: props.linkData.url
+          url: url
         })
     )
       .then((res) => res.json())
@@ -60,7 +59,7 @@ const LinkPreview = (props) => {
   }
 
   return (
-    <HyperLink href={props.linkData.url} target="_blank" rel="noreferrer">
+    <HyperLink href={url} target="_blank" rel="noreferrer">
       <ThemeProvider theme={customBreakpoints}>
         <LinkContainer>
           <LinkImage src="icons/Publicacio--n-falsa-mascarillas.png" />
@@ -74,7 +73,7 @@ const LinkPreview = (props) => {
             <LinkDateNameContainer item xs={12}>
               <Grid container>
                 <Grid item xs={12} sm={6}>
-                  <LinkSubtitle>{props.linkData.name}</LinkSubtitle>
+                  <LinkSubtitle>{name}</LinkSubtitle>
                 </Grid>
                 <Grid
                   item
@@ -88,7 +87,7 @@ const LinkPreview = (props) => {
                     }
                   }}>
                   <LinkSubtitle>
-                    {getAgeOfNew(props.linkData.date)}
+                    {getAgeOfNew(date)}
                   </LinkSubtitle>
                 </Grid>
               </Grid>
@@ -100,11 +99,12 @@ const LinkPreview = (props) => {
   )
 }
 
-LinkPreview.propTypes = {
-  linkData: PropTypes.object,
-  url: PropTypes.string,
-  name: PropTypes.string,
-  date: PropTypes.string
+interface linkProps {
+  link: {
+    url: string,
+    name: string,
+    date: string
+  }
 }
 
 export default LinkPreview

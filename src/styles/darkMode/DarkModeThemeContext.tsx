@@ -1,14 +1,21 @@
-import PropTypes from "prop-types"
-import React, { createContext, useContext, useEffect, useState } from "react"
+import React, {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState
+} from "react"
 
-export const ManageThemeContext = createContext({
+export const DarkModeThemeContext = createContext({
   darkMode: null,
   toggleDarkMode: () => {}
 })
 
-export const useTheme = () => useContext(ManageThemeContext)
+export const useDarkModeTheme = () => useContext(DarkModeThemeContext)
 
-export const ThemeManager = ({ children }) => {
+export const DarkModeThemeManager = ({
+  children
+}: DarkModeThemeManagerProps) => {
   const [darkMode, setDarkMode] = useState(null)
 
   useEffect(() => {
@@ -29,26 +36,21 @@ export const ThemeManager = ({ children }) => {
 
   const toggleThemeOnBackground = () => {
     chrome.storage.local.set({ darkMode: !darkMode }, () => {
-      //Se cambia el valor de la variable del background por el valor contrario del estado darkMode
-      chrome.storage.local.get("darkMode", (data) => {
-        console.log(
-          `Modo oscuro: background(${data.darkMode}) state(${darkMode})`
-        )
-      })
+      console.log("Tema cambiado.")
     })
   }
 
   return (
-    <ManageThemeContext.Provider
+    <DarkModeThemeContext.Provider
       value={{
         darkMode,
         toggleDarkMode
       }}>
       {children}
-    </ManageThemeContext.Provider>
+    </DarkModeThemeContext.Provider>
   )
 }
 
-ThemeManager.propTypes = {
-  children: PropTypes.any
+interface DarkModeThemeManagerProps {
+  children: ReactNode
 }

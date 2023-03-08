@@ -1,48 +1,55 @@
-import PropTypes from "prop-types"
 import React, { useMemo } from "react"
+import { ThemeProvider } from "styled-components"
 
-import { Colors } from "./styles/colors"
-import { Text, TextContainer, TopBar } from "./styles/styled"
+import { Text, TextContainer, TopBar } from "../styles/styled"
+import { greenReliability, orangeReliability, redReliability, yellowReliability } from "../styles/accesibilityMode/accesibilityModeThemeColors"
+import { useDarkModeTheme } from "../styles/darkMode/DarkModeThemeContext"
+import { useDaltonicModeTheme } from "../styles/accesibilityMode/AccesibilityThemeContext"
 
-const ReliabilityText = (props) => {
+
+const ReliabilityText = ({avg}: ReliabilityTextProps) => {
   const HIGH_THRESHOLD = 0.1
   const MID_HIDH_THRESHOLD = 0.44
   const MID_THRESHOLD = 0.75
 
+  const darkmode = useDarkModeTheme()
+  const daltonicMode = useDaltonicModeTheme()
+
   const reliability = useMemo(() => {
-    if (props.avg < HIGH_THRESHOLD) return "Muy alta"
-    if (props.avg >= HIGH_THRESHOLD && props.avg < MID_HIDH_THRESHOLD)
+    if (avg < HIGH_THRESHOLD) return "Muy alta"
+    if (avg >= HIGH_THRESHOLD && avg < MID_HIDH_THRESHOLD)
       return "Media - alta"
-    if (props.avg >= MID_HIDH_THRESHOLD && props.avg < MID_THRESHOLD)
+    if (avg >= MID_HIDH_THRESHOLD && avg < MID_THRESHOLD)
       return "Media"
     return "Baja"
-  }, [props.avg])
+  }, [avg])
 
   const reliabilityText = useMemo(() => {
-    if (props.avg > 0) {
-      if (props.avg < HIGH_THRESHOLD) return "¡Información verídica!"
-      if (props.avg >= HIGH_THRESHOLD && props.avg < MID_HIDH_THRESHOLD)
+    if (avg > 0) {
+      if (avg < HIGH_THRESHOLD) return "¡Información verídica!"
+      if (avg >= HIGH_THRESHOLD && avg < MID_HIDH_THRESHOLD)
         return "¡Información dudosa!"
-      if (props.avg >= MID_HIDH_THRESHOLD && props.avg < MID_THRESHOLD)
+      if (avg >= MID_HIDH_THRESHOLD && avg < MID_THRESHOLD)
         return "¡Información no muy fiable!"
       return "¡Información falsa!"
     } else {
       return
     }
-  }, [props.avg])
+  }, [avg])
 
   const color = useMemo(() => {
-    if (props.avg < HIGH_THRESHOLD) return Colors.Green
-    if (props.avg >= HIGH_THRESHOLD && props.avg < MID_HIDH_THRESHOLD)
-      return Colors.Yellow
-    if (props.avg >= MID_HIDH_THRESHOLD && props.avg < MID_THRESHOLD)
-      return Colors.Orange
-    return Colors.Red
-  }, [props.avg])
-
+    if (avg < HIGH_THRESHOLD) return greenReliability
+    if (avg >= HIGH_THRESHOLD && avg < MID_HIDH_THRESHOLD)
+      return yellowReliability
+    if (avg >= MID_HIDH_THRESHOLD && avg < MID_THRESHOLD)
+      return orangeReliability
+    return redReliability
+  }, [avg, darkmode, daltonicMode])
+  
   return (
-    <div>
-      {props.avg > 0 ? (
+    <ThemeProvider theme={darkmode}>
+      <ThemeProvider theme={daltonicMode}>
+      {avg > 0 ? (
         <>
           <TopBar color={color} />
           <TextContainer>
@@ -61,12 +68,13 @@ const ReliabilityText = (props) => {
           </TextContainer>
         </>
       )}
-    </div>
+      </ThemeProvider>
+    </ThemeProvider>
   )
 }
 
-ReliabilityText.propTypes = {
-  avg: PropTypes.number
+interface ReliabilityTextProps {
+  avg: number
 }
 
 export default ReliabilityText

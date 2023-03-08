@@ -1,13 +1,16 @@
 import React from "react"
 
-import { ThemeManager } from "../components/styles/ThemeContext"
+import { DaltonicModeThemeManager } from "../styles/accesibilityMode/AccesibilityThemeContext"
+import { DarkModeThemeManager } from "../styles/darkMode/DarkModeThemeContext"
 import Settings from "./Settings"
 
 const OptionsIndex = () => {
   return (
-    <ThemeManager>
-      <Settings />
-    </ThemeManager>
+    <DarkModeThemeManager>
+      <DaltonicModeThemeManager>
+        <Settings />
+      </DaltonicModeThemeManager>
+    </DarkModeThemeManager>
   )
 }
 

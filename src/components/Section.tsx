@@ -1,16 +1,14 @@
 import { Grid } from "@mui/material"
-import PropTypes from "prop-types"
 import React, { useEffect, useState } from "react"
 import { v4 } from "uuid"
 
 import LinkPreview from "./LinkPreview"
-import { ThemeManager } from "./styles/ThemeContext"
 
-const Section = (props) => {
+const Section = ({ newsArray }: SectionProps) => {
   const [content, setContent] = useState([])
 
   useEffect(() => {
-    makeEntailmentObjects(props.content)
+    makeEntailmentObjects(newsArray)
   }, [])
 
   const makeEntailmentObjects = (arr) => {
@@ -33,27 +31,25 @@ const Section = (props) => {
   const listLinkPreviews = content.map((contentData) => (
     <React.Fragment key={v4()}>
       <Grid item xs={12}>
-        <LinkPreview linkData={contentData} />
+        <LinkPreview link={contentData} />
       </Grid>
     </React.Fragment>
   ))
 
   return (
-    <ThemeManager>
-      <Grid
-        container
-        justifyContent="center"
-        spacing={5}
-        rowSpacing={5}
-        maxWidth="xl">
-        {listLinkPreviews}
-      </Grid>
-    </ThemeManager>
+    <Grid
+      container
+      justifyContent="center"
+      spacing={5}
+      rowSpacing={5}
+      maxWidth="xl">
+      {listLinkPreviews}
+    </Grid>
   )
 }
 
-Section.propTypes = {
-  content: PropTypes.array
+interface SectionProps {
+  newsArray: Array<object>
 }
 
 export default Section

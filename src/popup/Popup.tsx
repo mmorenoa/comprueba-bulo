@@ -3,12 +3,13 @@
 import React, { useEffect, useState } from "react"
 import { ThemeProvider } from "styled-components"
 
-import { useTheme } from "~src/components/styles/ThemeContext"
+import { useDaltonicModeTheme } from "~src/styles/accesibilityMode/AccesibilityThemeContext"
 
 import ReliabilityText from "../components/ReliabilityText"
 import Section from "../components/Section"
-import GlobalStyle from "../components/styles/GlobalStyle"
-import { Container, Spinner } from "../components/styles/styled"
+import GlobalStyle from "../styles/GlobalStyle"
+import { useDarkModeTheme } from "../styles/darkMode/DarkModeThemeContext"
+import { Container, Spinner } from "../styles/styled"
 
 const Popup = () => {
   const [avg, setAvg] = useState(undefined)
@@ -54,21 +55,25 @@ const Popup = () => {
   }
 
   const isLoading = avg === undefined
-  const theme = useTheme()
+  
+  const darkModeTheme = useDarkModeTheme()
+  const daltonicModeTheme = useDaltonicModeTheme()
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container>
-        <GlobalStyle />
-        {isLoading ? (
-          <Spinner />
-        ) : (
-          <>
-            <ReliabilityText avg={avg} />
-            {avg > 0 ? <Section content={factCheckers} /> : ""}
-          </>
-        )}
-      </Container>
+    <ThemeProvider theme={darkModeTheme}>
+      <ThemeProvider theme={daltonicModeTheme}>
+        <Container>
+          <GlobalStyle />
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <>
+              <ReliabilityText avg={avg} />
+              {avg > 0 ? <Section newsArray={factCheckers} /> : ""}
+            </>
+          )}
+        </Container>
+      </ThemeProvider>
     </ThemeProvider>
   )
 }

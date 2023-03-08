@@ -2,7 +2,7 @@ import { Grid } from "@mui/material"
 import styled, { css, keyframes } from "styled-components"
 
 import { Colors } from "./colors"
-import { backgroundColor, linkContainerBackgroundColor, secondaryTextColor, textColor } from "./themeColors"
+import { backgroundColor, linkContainerBackgroundColor, secondaryTextColor, textColor } from "./darkMode/darkModeThemeColors"
 
 export const Text = styled.span`
   font-size: 2rem;
@@ -72,7 +72,6 @@ export const Spinner = styled.div`
 
 export const LinkTitle = styled(Text)`
   font-size: 1.2rem;
-  color: ${textColor};
 `
 
 export const LinkSubtitle = styled(LinkTitle)`
@@ -107,7 +106,7 @@ export const FloatingButton = styled.button`
   box-shadow: 0px 5px 20px -5px black !important;
   padding: 2% 0;
   border: 1px solid;
-  border-color: ${Colors.Blue};
+  border-color: ${Colors.SecondaryText};
   cursor: pointer;
   background-color: ${backgroundColor};
   ${({ secondary }) =>
