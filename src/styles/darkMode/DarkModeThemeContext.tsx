@@ -8,7 +8,9 @@ import React, {
 
 export const DarkModeThemeContext = createContext({
   darkMode: null,
-  toggleDarkMode: () => {}
+  toggleDarkMode: () => {
+    // do nothing
+  }
 })
 
 export const useDarkModeTheme = () => useContext(DarkModeThemeContext)
@@ -30,13 +32,12 @@ export const DarkModeThemeManager = ({
   }
 
   const toggleDarkMode = () => {
-    setDarkMode((darkMode) => !darkMode)
-    toggleThemeOnBackground()
+    toggleThemeOnBackground(darkMode)
   }
 
-  const toggleThemeOnBackground = () => {
-    chrome.storage.local.set({ darkMode: !darkMode }, () => {
-      console.log("Tema cambiado.")
+  const toggleThemeOnBackground = (darkModeParam: boolean) => {
+    chrome.storage.local.set({ darkMode: !darkModeParam }, () => {
+      setDarkMode(!darkModeParam)
     })
   }
 

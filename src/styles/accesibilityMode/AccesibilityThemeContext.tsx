@@ -8,7 +8,9 @@ import React, {
 
 export const DaltonicModeThemeContext = createContext({
   daltonicMode: 0,
-  changeDaltonicMode: (e) => {}
+  changeDaltonicMode: (e) => {
+    // do nothing
+  }
 })
 
 export const useDaltonicModeTheme = () => useContext(DaltonicModeThemeContext)
@@ -30,13 +32,12 @@ export const DaltonicModeThemeManager = ({
   }
 
   const changeDaltonicMode = (e) => {
-    setDaltonicMode(e.target.value)
-    toggleThemeOnBackground()
+    toggleThemeOnBackground(e.target.value)
   }
 
-  const toggleThemeOnBackground = () => {
-    chrome.storage.local.set({ daltonicMode: daltonicMode }, () => {
-      console.log("Tema de accesibilidad cambiado.")
+  const toggleThemeOnBackground = (daltonic: number) => {
+    chrome.storage.local.set({ daltonicMode: daltonic }, () => {
+      setDaltonicMode(daltonic)
     })
   }
 
