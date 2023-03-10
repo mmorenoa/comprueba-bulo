@@ -127,10 +127,9 @@ export const FloatingButton = styled.button`
 `
 
 export const FloatingButtonText = styled(Text)`
-  font-size: 1rem !important;
+  font-size: 1.8vh !important;
   font-weight: 500 !important;
   padding-right: 0.5rem !important;
-  vertical-align: middle !important;
   color: ${textColor};
 `
 
@@ -153,12 +152,15 @@ export const OptionsContainer = styled(Container)`
   ${Icon} {
     max-width: 23px;
     min-width: 23px;
-    padding: 0.5rem 0 0.5rem 0.5rem;
+    padding: 0.5rem 0 0.5rem 0.5rem !important;
   }
   ${Text} {
     padding-left: 1rem;
     font-size: 1.1rem;
     font-weight: 500;
-    line-height: 2.5rem;
   }
+`
+
+export const Select = styled.select`
+  margin-right: 5vh;
 `

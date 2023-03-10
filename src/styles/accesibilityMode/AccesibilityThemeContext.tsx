@@ -27,7 +27,6 @@ export const DaltonicModeThemeManager = ({
   const initializeTheme = () => {
     chrome.storage.local.get("daltonicMode", (data) => {
       setDaltonicMode(data.daltonicMode)
-      console.log(`Modo daltonico inicializado: ${data.daltonicMode}`)
     })
   }
 

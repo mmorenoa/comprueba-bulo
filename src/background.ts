@@ -8,13 +8,19 @@ chrome.runtime.onInstalled.addListener(() => {
     contexts: ["selection"]
   })
   chrome.storage.local.set({ floatingButton: true }, () => {
-    console.log("Botón flotante:" + true)
+    chrome.storage.local.get("floatingButton", (data) => {
+      console.log("Botón flotante:" + data.floatingButton)
+    })
   })
   chrome.storage.local.set({ darkMode: false }, () => {
-    console.log("Tema por defecto: light")
+    chrome.storage.local.get("darkMode", (data) => {
+      console.log("Modo oscuro:" + data.darkMode)
+    })
   })
   chrome.storage.local.set({ daltonicMode: 0 }, () => {
-    console.log("Tema de daltonismo: 0")
+    chrome.storage.local.get("daltonicMode", (data) => {
+      console.log("Modo de daltonismo:" + data.daltonicMode)
+    })
   })
 })
 

@@ -20,7 +20,7 @@ const Button = ({ icon, text, secondary = false, action }: ButtonProps) => {
           secondary={secondary}
           onClick={action}>
           <Icon src={icon} />
-          <FloatingButtonText>{text}</FloatingButtonText>
+          {text ? <FloatingButtonText>{text}</FloatingButtonText> : ""}
         </FloatingButton>
       </ThemeProvider>
     </ThemeProvider>

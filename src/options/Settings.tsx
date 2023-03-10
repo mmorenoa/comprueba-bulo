@@ -1,10 +1,10 @@
-import { Grid, InputLabel, MenuItem, Select, Switch } from "@mui/material"
+import { Grid, Switch } from "@mui/material"
 import React, { useState } from "react"
 import { ThemeProvider } from "styled-components"
 
 import GlobalStyle from "../styles/GlobalStyle"
 import { useDarkModeTheme } from "../styles/darkMode/DarkModeThemeContext"
-import { Icon, OptionsContainer, Text, TopBar } from "../styles/styled"
+import { Icon, OptionsContainer, Text, TopBar, Select } from "../styles/styled"
 import { useDaltonicModeTheme } from "~src/styles/accesibilityMode/AccesibilityThemeContext"
 
 const Settings = () => {
@@ -12,18 +12,14 @@ const Settings = () => {
 
   const disableFloatingButton = () => {
     if (!floatingButton) {
-      setfloatingButton(true)
-      setfloatingButtonOnBackground(true)
+      chrome.storage.local.set({ floatingButton: true }, () => {
+        setfloatingButton(true)
+      })
     } else {
-      setfloatingButton(false)
-      setfloatingButtonOnBackground(false)
+      chrome.storage.local.set({ floatingButton: false }, () => {
+        setfloatingButton(false)
+      })
     }
-  }
-
-  const setfloatingButtonOnBackground = (state) => {
-    chrome.storage.local.set({ floatingButton: state }, () => {
-      console.log("Botón flotante: " + state)
-    })
   }
 
   const darkModeTheme = useDarkModeTheme()
@@ -35,7 +31,7 @@ const Settings = () => {
         <OptionsContainer>
           <GlobalStyle />
           <TopBar />
-          <Grid container>
+          <Grid container sx={{alignItems: "center"}}>
             <Grid item xs={1}>
               <Icon
                 src={chrome.runtime.getURL("icons/luna-creciente128.png")}
@@ -44,7 +40,7 @@ const Settings = () => {
             <Grid item xs={9}>
               <Text>Modo oscuro</Text>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={2} sx={{textAlign: "right"}}>
               <Switch
                 onChange={darkModeTheme.toggleDarkMode}
                 checked={darkModeTheme.darkMode === true}
@@ -56,7 +52,7 @@ const Settings = () => {
             <Grid item xs={9}>
               <Text>Habilitar botón flotante</Text>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={2} sx={{textAlign: "right"}}>
               <Switch
                 onChange={disableFloatingButton}
                 checked={floatingButton}
@@ -65,18 +61,17 @@ const Settings = () => {
             <Grid item xs={1}>
               <Icon src={chrome.runtime.getURL("icons/accesibility.png")} />
             </Grid>
-            <Grid item xs={9}>
+            <Grid item xs={8}>
               <Text>Cambiar colores para accesibilidad</Text>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={3} sx={{textAlign: "right"}}>
               <Select
                 value={daltonicModeTheme.daltonicMode}
-                label="Colores"
                 onChange={daltonicModeTheme.changeDaltonicMode}>
-                <MenuItem value={0}>Ninguno</MenuItem>
-                <MenuItem value={1}>Deuteranopía</MenuItem>
-                <MenuItem value={2}>Protanopía</MenuItem>
-                <MenuItem value={3}>Tritanopía</MenuItem>
+                <option value={0}>Ninguno</option>
+                <option value={1}>Deuteranopía</option>
+                <option value={2}>Protanopía</option>
+                <option value={3}>Tritanopía</option>
               </Select>
             </Grid>
           </Grid>

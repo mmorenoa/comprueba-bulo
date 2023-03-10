@@ -27,7 +27,6 @@ export const DarkModeThemeManager = ({
   const initializeTheme = () => {
     chrome.storage.local.get("darkMode", (data) => {
       setDarkMode(data.darkMode)
-      console.log(`Modo oscuro inicializado: ${data.darkMode}`)
     })
   }
 
