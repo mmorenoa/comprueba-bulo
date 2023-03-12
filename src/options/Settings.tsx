@@ -1,10 +1,13 @@
+import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined"
 import { Grid, Switch } from "@mui/material"
 import MenuItem from "@mui/material/MenuItem"
 import Select from "@mui/material/Select"
 import React, { useState } from "react"
 import { ThemeProvider } from "styled-components"
 
+import LinkCircle from "~src/components/LinkCircle"
 import { useDaltonicModeTheme } from "~src/styles/accesibilityMode/AccesibilityThemeContext"
+import { backgroundColor, textColor } from "~src/styles/darkMode/darkModeThemeColors"
 
 import GlobalStyle from "../styles/GlobalStyle"
 import { useDarkModeTheme } from "../styles/darkMode/DarkModeThemeContext"
@@ -40,6 +43,9 @@ const Settings = () => {
         <OptionsContainer>
           <GlobalStyle />
           <TopBar />
+          <LinkCircle to="popup.html">
+            <ArrowBackOutlinedIcon fontSize="large"/>
+          </LinkCircle>
           <Grid container sx={{ alignItems: "center" }}>
             <GridWithPadding item xs={1}>
               <Icon

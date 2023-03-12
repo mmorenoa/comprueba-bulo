@@ -1,4 +1,4 @@
-import { Grid, Select } from "@mui/material"
+import { Grid } from "@mui/material"
 import styled, { css } from "styled-components"
 
 import { Colors } from "./colors"
@@ -84,7 +84,8 @@ export const HyperLink = styled.a`
 export const FloatingButton = styled.button`
   border-radius: inherit;
   background-color: white;
-  display: inline-block;
+  display: flex !important;
+  align-items: center !important;
   box-shadow: 0px 5px 20px -5px black !important;
   padding: 2% 0;
   border: 1px solid;
@@ -109,10 +110,11 @@ export const FloatingButton = styled.button`
 `
 
 export const FloatingButtonText = styled(Text)`
-  font-size: 1.8vh !important;
+  font-size: 1rem !important;
   font-weight: 500 !important;
   padding-right: 0.5rem !important;
   color: ${textColor};
+  font-family: "Inter", sans-serif !important;
 `
 
 export const Icon = styled.img`
@@ -128,7 +130,7 @@ export const ButtonContainer = styled.div`
 `
 export const OptionsContainer = styled(Container)`
   text-align: left;
-  padding: 1rem 1.2rem;
+  padding: 2rem 1.2rem 1rem 2rem;
   vertical-align: middle;
   font-size: 1rem;
   ${Icon} {
@@ -146,22 +148,22 @@ export const GridWithPadding = styled(Grid)`
   padding: 0.2rem 0;
 `
 
-export const Circle = styled.div`
-  height: 6.5rem;
-  width: 6.5rem;
-  border-radius: 20%;
+export const Circle = styled.a`
+  height: 2.7rem;
+  width: 2.7rem;
+  border-radius: 0 0 22px 0;
   display: inline-block;
   position: absolute;
-  top: -3.1%;
-  right: -11%;
+  top: 0%;
+  left: 0%;
   background-color: ${(props) => props.color || textColor};
   overflow: hidden;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
-export const SettingIconInPopup = styled.img`
-  position: absolute;
-  top: 64%;
-  right: 66%;
-  width: 29px;
+export const IconInLinkCircle = styled.img`
+  max-width: 29px;
 `

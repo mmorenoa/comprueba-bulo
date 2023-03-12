@@ -10,8 +10,8 @@ import {
 } from "../styles/accesibilityMode/accesibilityModeThemeColors"
 import { useDarkModeTheme } from "../styles/darkMode/DarkModeThemeContext"
 import { textColor } from "../styles/darkMode/darkModeThemeColors"
-import { Text, TextContainer, TopBar } from "../styles/styled"
-import SettingsCircle from "./SettingsCircle"
+import { IconInLinkCircle, Text, TextContainer, TopBar } from "../styles/styled"
+import LinkCircle from "./LinkCircle"
 
 const ReliabilityText = ({ avg }: ReliabilityTextProps) => {
   const HIGH_THRESHOLD = 0.1
@@ -58,7 +58,9 @@ const ReliabilityText = ({ avg }: ReliabilityTextProps) => {
     <ThemeProvider theme={darkmode}>
       <ThemeProvider theme={daltonicMode}>
         <TopBar color={color} />
-        <SettingsCircle color={color} />
+        <LinkCircle color={color} icon="icons/setting32.png" to="options.html">
+          <IconInLinkCircle src="icons/setting32.png" />
+        </LinkCircle>
         <TextContainer>
           <Text>{reliabilityText}</Text>
           {avg > 0 ? (

@@ -47,7 +47,7 @@ const Popup = () => {
           avgValues.reduce((previous, current) => (current += previous)) /
           avgValues.length
         setAvg(avgResult)
-        chrome.runtime.sendMessage({ action: "resize-window" })
+        chrome.runtime.sendMessage({ action: "resize-window-for-loading" })
       }
       setFactCheckers(arr)
     } else {

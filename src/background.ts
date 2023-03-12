@@ -29,21 +29,21 @@ chrome.contextMenus.onClicked.addListener(() => {
 })
 
 chrome.runtime.onMessage.addListener((request) => {
-  if (request && request.action === "open-extension") {
-    openExtension()
-  }
-})
-
-chrome.runtime.onMessage.addListener((request) => {
-  if (request && request.action === "resize-window") {
-    updateWindowSize(600, 460)
-  }
-})
-
-
-chrome.runtime.onMessage.addListener((request) => {
-  if (request && request.action === "open-options") {
-    openOptions()
+  switch (request && request.action) {
+    case "open-extension":
+      openExtension()
+      break
+    case "resize-window-for-loading":
+      updateWindowSize(600, 460)
+      break
+    case "open-options":
+      openOptions()
+      break
+    case "resize-window-for-options":
+      updateWindowSize(600, 250)
+    break
+    default:
+      break
   }
 })
 
@@ -80,7 +80,7 @@ const openOptions = () => {
     url: "options.html",
     type: "popup",
     width: 600,
-    height: 230,
+    height: 250,
     top: 400,
     left: 800
   })
