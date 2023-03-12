@@ -68,7 +68,7 @@ const openExtension = () =>
     chrome.windows.create({
       url: "popup.html",
       type: "popup",
-      width: 600,
+      width: 700,
       height: 170,
       top: 400,
       left: 800
@@ -80,7 +80,7 @@ const openOptions = () => {
     url: "options.html",
     type: "popup",
     width: 600,
-    height: 200,
+    height: 230,
     top: 400,
     left: 800
   })

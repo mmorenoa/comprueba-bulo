@@ -1,5 +1,6 @@
 /* chrome global */
 
+import CircularProgress from "@mui/material/CircularProgress"
 import React, { useEffect, useState } from "react"
 import { ThemeProvider } from "styled-components"
 
@@ -9,7 +10,7 @@ import ReliabilityText from "../components/ReliabilityText"
 import Section from "../components/Section"
 import GlobalStyle from "../styles/GlobalStyle"
 import { useDarkModeTheme } from "../styles/darkMode/DarkModeThemeContext"
-import { Container, Spinner } from "../styles/styled"
+import { Container } from "../styles/styled"
 
 const Popup = () => {
   const [avg, setAvg] = useState(undefined)
@@ -55,7 +56,7 @@ const Popup = () => {
   }
 
   const isLoading = avg === undefined
-  
+
   const darkModeTheme = useDarkModeTheme()
   const daltonicModeTheme = useDaltonicModeTheme()
 
@@ -65,7 +66,7 @@ const Popup = () => {
         <Container>
           <GlobalStyle />
           {isLoading ? (
-            <Spinner />
+            <CircularProgress />
           ) : (
             <>
               <ReliabilityText avg={avg} />

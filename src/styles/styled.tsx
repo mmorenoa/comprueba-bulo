@@ -1,8 +1,13 @@
-import { Grid } from "@mui/material"
-import styled, { css, keyframes } from "styled-components"
+import { Grid, Select } from "@mui/material"
+import styled, { css } from "styled-components"
 
 import { Colors } from "./colors"
-import { backgroundColor, linkContainerBackgroundColor, secondaryTextColor, textColor } from "./darkMode/darkModeThemeColors"
+import {
+  backgroundColor,
+  linkContainerBackgroundColor,
+  secondaryTextColor,
+  textColor
+} from "./darkMode/darkModeThemeColors"
 
 export const Text = styled.span`
   font-size: 2rem;
@@ -45,29 +50,6 @@ export const TopBar = styled.div`
   position: absolute;
   top: 0;
   right: 0;
-`
-
-const rotate360 = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`
-
-export const Spinner = styled.div`
-  animation: ${rotate360} 1s linear infinite;
-  transform: translateZ(0);
-  border-top: 2px solid grey;
-  border-right: 2px solid grey;
-  border-bottom: 2px solid grey;
-  border-left: 4px solid black;
-  background: transparent;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  margin: 2em auto;
 `
 
 export const LinkTitle = styled(Text)`
@@ -146,7 +128,7 @@ export const ButtonContainer = styled.div`
 `
 export const OptionsContainer = styled(Container)`
   text-align: left;
-  padding: 0.6rem 1.2rem;
+  padding: 1rem 1.2rem;
   vertical-align: middle;
   font-size: 1rem;
   ${Icon} {
@@ -155,12 +137,31 @@ export const OptionsContainer = styled(Container)`
     padding: 0.5rem 0 0.5rem 0.5rem !important;
   }
   ${Text} {
-    padding-left: 1rem;
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     font-weight: 500;
   }
 `
 
-export const Select = styled.select`
-  margin-right: 5vh;
+export const GridWithPadding = styled(Grid)`
+  padding: 0.2rem 0;
+`
+
+export const Circle = styled.div`
+  height: 6.5rem;
+  width: 6.5rem;
+  border-radius: 20%;
+  display: inline-block;
+  position: absolute;
+  top: -3.1%;
+  right: -11%;
+  background-color: ${(props) => props.color || textColor};
+  overflow: hidden;
+  cursor: pointer;
+`
+
+export const SettingIconInPopup = styled.img`
+  position: absolute;
+  top: 64%;
+  right: 66%;
+  width: 29px;
 `

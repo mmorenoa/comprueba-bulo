@@ -1,11 +1,20 @@
 import { Grid, Switch } from "@mui/material"
+import MenuItem from "@mui/material/MenuItem"
+import Select from "@mui/material/Select"
 import React, { useState } from "react"
 import { ThemeProvider } from "styled-components"
 
+import { useDaltonicModeTheme } from "~src/styles/accesibilityMode/AccesibilityThemeContext"
+
 import GlobalStyle from "../styles/GlobalStyle"
 import { useDarkModeTheme } from "../styles/darkMode/DarkModeThemeContext"
-import { Icon, OptionsContainer, Text, TopBar, Select } from "../styles/styled"
-import { useDaltonicModeTheme } from "~src/styles/accesibilityMode/AccesibilityThemeContext"
+import {
+  GridWithPadding,
+  Icon,
+  OptionsContainer,
+  Text,
+  TopBar
+} from "../styles/styled"
 
 const Settings = () => {
   const [floatingButton, setfloatingButton] = useState(true)
@@ -31,49 +40,52 @@ const Settings = () => {
         <OptionsContainer>
           <GlobalStyle />
           <TopBar />
-          <Grid container sx={{alignItems: "center"}}>
-            <Grid item xs={1}>
+          <Grid container sx={{ alignItems: "center" }}>
+            <GridWithPadding item xs={1}>
               <Icon
                 src={chrome.runtime.getURL("icons/luna-creciente128.png")}
               />
-            </Grid>
-            <Grid item xs={9}>
+            </GridWithPadding>
+            <GridWithPadding item xs={9}>
               <Text>Modo oscuro</Text>
-            </Grid>
-            <Grid item xs={2} sx={{textAlign: "right"}}>
+            </GridWithPadding>
+            <GridWithPadding item xs={2} sx={{ textAlign: "right" }}>
               <Switch
                 onChange={darkModeTheme.toggleDarkMode}
                 checked={darkModeTheme.darkMode === true}
               />
-            </Grid>
-            <Grid item xs={1}>
+            </GridWithPadding>
+            <GridWithPadding item xs={1}>
               <Icon src={chrome.runtime.getURL("icons/cheque128.png")} />
-            </Grid>
-            <Grid item xs={9}>
+            </GridWithPadding>
+            <GridWithPadding item xs={9}>
               <Text>Habilitar botón flotante</Text>
-            </Grid>
-            <Grid item xs={2} sx={{textAlign: "right"}}>
+            </GridWithPadding>
+            <GridWithPadding item xs={2} sx={{ textAlign: "right" }}>
               <Switch
                 onChange={disableFloatingButton}
                 checked={floatingButton}
               />
-            </Grid>
-            <Grid item xs={1}>
+            </GridWithPadding>
+            <GridWithPadding item xs={1}>
               <Icon src={chrome.runtime.getURL("icons/accesibility.png")} />
-            </Grid>
-            <Grid item xs={8}>
+            </GridWithPadding>
+            <GridWithPadding item xs={8}>
               <Text>Cambiar colores para accesibilidad</Text>
-            </Grid>
-            <Grid item xs={3} sx={{textAlign: "right"}}>
+            </GridWithPadding>
+            <GridWithPadding item xs={3} sx={{ textAlign: "right" }}>
               <Select
+                size="small"
+                autoWidth
                 value={daltonicModeTheme.daltonicMode}
-                onChange={daltonicModeTheme.changeDaltonicMode}>
-                <option value={0}>Ninguno</option>
-                <option value={1}>Deuteranopía</option>
-                <option value={2}>Protanopía</option>
-                <option value={3}>Tritanopía</option>
+                onChange={daltonicModeTheme.changeDaltonicMode}
+                sx={{ backgroundColor: "#FFF" }}>
+                <MenuItem value={0}>Ninguno</MenuItem>
+                <MenuItem value={1}>Deuteranopía</MenuItem>
+                <MenuItem value={2}>Protanopía</MenuItem>
+                <MenuItem value={3}>Tritanopía</MenuItem>
               </Select>
-            </Grid>
+            </GridWithPadding>
           </Grid>
         </OptionsContainer>
       </ThemeProvider>
