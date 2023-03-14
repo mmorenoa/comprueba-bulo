@@ -1,13 +1,10 @@
-import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined"
 import { Grid, Switch } from "@mui/material"
 import MenuItem from "@mui/material/MenuItem"
 import Select from "@mui/material/Select"
 import React, { useState } from "react"
 import { ThemeProvider } from "styled-components"
 
-import LinkCircle from "~src/components/LinkCircle"
 import { useDaltonicModeTheme } from "~src/styles/accesibilityMode/AccesibilityThemeContext"
-import { backgroundColor, textColor } from "~src/styles/darkMode/darkModeThemeColors"
 
 import GlobalStyle from "../styles/GlobalStyle"
 import { useDarkModeTheme } from "../styles/darkMode/DarkModeThemeContext"
@@ -15,9 +12,12 @@ import {
   GridWithPadding,
   Icon,
   OptionsContainer,
+  StyledBackIcon,
+  StyledCloseIcon,
   Text,
   TopBar
 } from "../styles/styled"
+import Link from "~src/components/Link"
 
 const Settings = () => {
   const [floatingButton, setfloatingButton] = useState(true)
@@ -43,9 +43,12 @@ const Settings = () => {
         <OptionsContainer>
           <GlobalStyle />
           <TopBar />
-          <LinkCircle to="popup.html">
-            <ArrowBackOutlinedIcon fontSize="large"/>
-          </LinkCircle>
+          <Link to={"popup.html"}>
+            <StyledBackIcon />
+          </Link>
+          <Link close>
+            <StyledCloseIcon />
+          </Link>
           <Grid container sx={{ alignItems: "center" }}>
             <GridWithPadding item xs={1}>
               <Icon

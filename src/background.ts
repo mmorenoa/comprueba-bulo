@@ -40,7 +40,7 @@ chrome.runtime.onMessage.addListener((request) => {
       openOptions()
       break
     case "resize-window-for-options":
-      updateWindowSize(600, 250)
+      updateWindowSize(600, 255)
     break
     default:
       break

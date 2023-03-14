@@ -1,3 +1,6 @@
+import CloseIcon from "@mui/icons-material/Close"
+import BuildIcon from '@mui/icons-material/Build';
+import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined"
 import { Grid } from "@mui/material"
 import styled, { css } from "styled-components"
 
@@ -130,7 +133,7 @@ export const ButtonContainer = styled.div`
 `
 export const OptionsContainer = styled(Container)`
   text-align: left;
-  padding: 2rem 1.2rem 1rem 2rem;
+  padding: 2.5rem 1.2rem 1rem 2rem;
   vertical-align: middle;
   font-size: 1rem;
   ${Icon} {
@@ -151,11 +154,11 @@ export const GridWithPadding = styled(Grid)`
 export const Circle = styled.a`
   height: 2.7rem;
   width: 2.7rem;
-  border-radius: 0 0 22px 0;
+  border-radius: 0 0 0 22px;
   display: inline-block;
   position: absolute;
   top: 0%;
-  left: 0%;
+  right: 0%;
   background-color: ${(props) => props.color || textColor};
   overflow: hidden;
   cursor: pointer;
@@ -164,6 +167,37 @@ export const Circle = styled.a`
   align-items: center;
 `
 
+export const CircleLeft = styled(Circle)`
+  border-radius: 0 0 22px 0;
+  left: 0%;
+`
+
 export const IconInLinkCircle = styled.img`
   max-width: 29px;
+`
+
+const TopLeftIconsStyles = css`
+  position: absolute;
+  top: 0.4%;
+  left: 1.5%;
+  width: 29px;
+  padding: 2% 0 0 1%;
+`
+
+const TopRightIconsStyles = css`
+  position: absolute;
+  top: 0.4%;
+  right: 1.5%;
+  width: 29px;
+  padding: 2% 1% 0 0;
+`
+
+export const StyledCloseIcon = styled(CloseIcon)`
+  ${TopRightIconsStyles}
+`
+export const StyledBuildIcon = styled(BuildIcon)`
+  ${TopLeftIconsStyles}
+`
+export const StyledBackIcon = styled(ArrowBackOutlinedIcon)`
+  ${TopLeftIconsStyles}
 `
