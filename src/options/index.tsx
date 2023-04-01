@@ -1,17 +1,26 @@
 import React from "react"
+import { RouterProvider, createMemoryRouter } from "react-router-dom"
 
-import { DaltonicModeThemeManager } from "../styles/accesibilityMode/AccesibilityThemeContext"
-import { DarkModeThemeManager } from "../styles/darkMode/DarkModeThemeContext"
-import Settings from "./Settings"
+import PopupIndex from "../popup/PopupIndex"
+import OptionsIndex from "./OptionsIndex"
 
-const OptionsIndex = () => {
-  return (
-    <DarkModeThemeManager>
-      <DaltonicModeThemeManager>
-        <Settings />
-      </DaltonicModeThemeManager>
-    </DarkModeThemeManager>
-  )
+const router = createMemoryRouter([
+  {
+    path: "/",
+    element: <PopupIndex />
+  },
+  {
+    path: "/options",
+    element: <OptionsIndex />
+  },
+  {
+    index: true,
+    element: <OptionsIndex />
+  }
+])
+
+const Routes = () => {
+  return <RouterProvider router={router} />
 }
 
-export default OptionsIndex
+export default Routes

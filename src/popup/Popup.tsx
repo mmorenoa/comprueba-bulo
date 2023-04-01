@@ -2,9 +2,9 @@
 
 import CircularProgress from "@mui/material/CircularProgress"
 import React, { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import { ThemeProvider } from "styled-components"
 
-import Link from "~src/components/Link"
 import { useDaltonicModeTheme } from "~src/styles/accesibilityMode/AccesibilityThemeContext"
 
 import ReliabilityText from "../components/ReliabilityText"
@@ -66,9 +66,7 @@ const Popup = () => {
       <ThemeProvider theme={daltonicModeTheme}>
         <Container>
           <GlobalStyle />
-          <Link close>
-            <StyledCloseIcon />
-          </Link>
+          <StyledCloseIcon onClick={() => window.close()} />
           {isLoading ? (
             <CircularProgress />
           ) : (

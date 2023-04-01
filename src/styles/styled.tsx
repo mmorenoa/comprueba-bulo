@@ -113,7 +113,7 @@ export const FloatingButton = styled.button`
 `
 
 export const FloatingButtonText = styled(Text)`
-  font-size: 1rem !important;
+  font-size: 16px !important;
   font-weight: 500 !important;
   padding-right: 0.5rem !important;
   color: ${textColor};

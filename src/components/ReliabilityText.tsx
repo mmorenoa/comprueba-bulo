@@ -1,5 +1,5 @@
-import BuildIcon from "@mui/icons-material/Build"
 import React, { useMemo } from "react"
+import { Link } from "react-router-dom"
 import { ThemeProvider } from "styled-components"
 
 import { useDaltonicModeTheme } from "../styles/accesibilityMode/AccesibilityThemeContext"
@@ -11,15 +11,7 @@ import {
 } from "../styles/accesibilityMode/accesibilityModeThemeColors"
 import { useDarkModeTheme } from "../styles/darkMode/DarkModeThemeContext"
 import { textColor } from "../styles/darkMode/darkModeThemeColors"
-import {
-  IconInLinkCircle,
-  StyledBuildIcon,
-  Text,
-  TextContainer,
-  TopBar
-} from "../styles/styled"
-import LinkCircle from "./Link"
-import Link from "./Link"
+import { StyledBuildIcon, Text, TextContainer, TopBar } from "../styles/styled"
 
 const ReliabilityText = ({ avg }: ReliabilityTextProps) => {
   const HIGH_THRESHOLD = 0.1
@@ -66,7 +58,7 @@ const ReliabilityText = ({ avg }: ReliabilityTextProps) => {
     <ThemeProvider theme={darkmode}>
       <ThemeProvider theme={daltonicMode}>
         <TopBar color={color} />
-        <Link to="options.html">
+        <Link to={`/options`} onClick={() => chrome.runtime.sendMessage({ action: "resize-window-for-options" })}>
           <StyledBuildIcon />
         </Link>
         <TextContainer>

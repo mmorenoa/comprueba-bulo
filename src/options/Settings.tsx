@@ -2,6 +2,7 @@ import { Grid, Switch } from "@mui/material"
 import MenuItem from "@mui/material/MenuItem"
 import Select from "@mui/material/Select"
 import React, { useState } from "react"
+import { Link } from "react-router-dom"
 import { ThemeProvider } from "styled-components"
 
 import { useDaltonicModeTheme } from "~src/styles/accesibilityMode/AccesibilityThemeContext"
@@ -17,7 +18,6 @@ import {
   Text,
   TopBar
 } from "../styles/styled"
-import Link from "~src/components/Link"
 
 const Settings = () => {
   const [floatingButton, setfloatingButton] = useState(true)
@@ -43,12 +43,10 @@ const Settings = () => {
         <OptionsContainer>
           <GlobalStyle />
           <TopBar />
-          <Link to={"popup.html"}>
+          <Link to={`/`}>
             <StyledBackIcon />
           </Link>
-          <Link close>
-            <StyledCloseIcon />
-          </Link>
+          <StyledCloseIcon onClick={() => window.close()} />
           <Grid container sx={{ alignItems: "center" }}>
             <GridWithPadding item xs={1}>
               <Icon
