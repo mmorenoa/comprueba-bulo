@@ -1,6 +1,6 @@
 import React from "react"
 
-import { DaltonicModeThemeManager } from "~src/styles/accesibilityMode/AccesibilityThemeContext"
+import { DaltonicModeThemeManager } from "../styles/accesibilityMode/AccesibilityThemeContext"
 
 import { DarkModeThemeManager } from "../styles/darkMode/DarkModeThemeContext"
 import { ButtonContainer } from "../styles/styled"

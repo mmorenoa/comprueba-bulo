@@ -62,7 +62,7 @@ const ReliabilityText = ({ avg }: ReliabilityTextProps) => {
       <ThemeProvider theme={daltonicMode}>
         <TopBar color={color} />
         <Link
-          to={`/options`}
+          to={`/options.html`}
           onClick={() =>
             chrome.runtime.sendMessage({ action: "resize-window-for-options" })
           }>

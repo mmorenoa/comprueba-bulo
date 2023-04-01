@@ -1,16 +1,16 @@
 import React from "react"
-import { RouterProvider, createMemoryRouter } from "react-router-dom"
+import { RouterProvider, createBrowserRouter } from "react-router-dom"
 
 import OptionsIndex from "../options/OptionsIndex"
 import PopupIndex from "./PopupIndex"
 
-const router = createMemoryRouter([
+const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/popup.html",
     element: <PopupIndex />
   },
   {
-    path: "/options",
+    path: "/options.html",
     element: <OptionsIndex />
   }
 ])

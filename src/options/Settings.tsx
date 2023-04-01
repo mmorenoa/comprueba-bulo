@@ -40,7 +40,7 @@ const Settings = () => {
         <OptionsContainer>
           <GlobalStyle />
           <TopBar />
-          <Link to={`/`}>
+          <Link to={`/popup.html`}>
             <StyledBackIcon />
           </Link>
           <Grid container sx={{ alignItems: "center" }}>

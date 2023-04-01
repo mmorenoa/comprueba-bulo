@@ -4,13 +4,13 @@ import CircularProgress from "@mui/material/CircularProgress"
 import React, { useEffect, useState } from "react"
 import { ThemeProvider } from "styled-components"
 
-import { useDaltonicModeTheme } from "~src/styles/accesibilityMode/AccesibilityThemeContext"
+import { useDaltonicModeTheme } from "../styles/accesibilityMode/AccesibilityThemeContext"
 
 import ReliabilityText from "../components/ReliabilityText"
 import Section from "../components/Section"
 import GlobalStyle from "../styles/GlobalStyle"
 import { useDarkModeTheme } from "../styles/darkMode/DarkModeThemeContext"
-import { Container, StyledCloseIcon } from "../styles/styled"
+import { Container } from "../styles/styled"
 
 const Popup = () => {
   const [avg, setAvg] = useState(undefined)
