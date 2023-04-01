@@ -5,6 +5,9 @@ import { DaltonicModeThemeManager } from "~src/styles/accesibilityMode/Accesibil
 import { DarkModeThemeManager } from "../styles/darkMode/DarkModeThemeContext"
 import { ButtonContainer } from "../styles/styled"
 import Button from "./Button"
+import { useTranslation } from "react-i18next"
+import "../i18n"
+
 
 const AnimatedButton = () => {
   const openExtensionHandler = () => {
@@ -15,13 +18,15 @@ const AnimatedButton = () => {
     chrome.runtime.sendMessage({ action: "open-options" })
   }
 
+  const { t } = useTranslation()
+
   return (
     <DarkModeThemeManager>
       <DaltonicModeThemeManager>
         <ButtonContainer>
           <Button
             icon={chrome.runtime.getURL("icons/cheque24.png")}
-            text="Verificar texto"
+            text={t("verifyText")}
             action={openExtensionHandler}
           />
           <Button

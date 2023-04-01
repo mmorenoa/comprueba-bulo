@@ -1,12 +1,15 @@
 import { Grid, Switch } from "@mui/material"
 import MenuItem from "@mui/material/MenuItem"
 import Select from "@mui/material/Select"
-import React, { useState } from "react"
+import { changeLanguage } from "i18next"
+import React, { useEffect } from "react"
+import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
 import { ThemeProvider } from "styled-components"
 
 import { useDaltonicModeTheme } from "~src/styles/accesibilityMode/AccesibilityThemeContext"
 
+import SwitchFloatingButton from "../components/SwitchFloatingButton"
 import GlobalStyle from "../styles/GlobalStyle"
 import { useDarkModeTheme } from "../styles/darkMode/DarkModeThemeContext"
 import {
@@ -14,24 +17,18 @@ import {
   Icon,
   OptionsContainer,
   StyledBackIcon,
-  StyledCloseIcon,
   Text,
   TopBar
 } from "../styles/styled"
 
 const Settings = () => {
-  const [floatingButton, setfloatingButton] = useState(true)
+  const { i18n, t } = useTranslation()
 
-  const disableFloatingButton = () => {
-    if (!floatingButton) {
-      chrome.storage.local.set({ floatingButton: true }, () => {
-        setfloatingButton(true)
-      })
-    } else {
-      chrome.storage.local.set({ floatingButton: false }, () => {
-        setfloatingButton(false)
-      })
-    }
+  const onChangeLang = (e) => {
+    const lang_code = e.target.value
+    chrome.storage.local.set({ language: lang_code }, () => {
+      i18n.changeLanguage(lang_code)
+    })
   }
 
   const darkModeTheme = useDarkModeTheme()
@@ -46,7 +43,6 @@ const Settings = () => {
           <Link to={`/`}>
             <StyledBackIcon />
           </Link>
-          <StyledCloseIcon onClick={() => window.close()} />
           <Grid container sx={{ alignItems: "center" }}>
             <GridWithPadding item xs={1}>
               <Icon
@@ -54,7 +50,7 @@ const Settings = () => {
               />
             </GridWithPadding>
             <GridWithPadding item xs={9}>
-              <Text>Modo oscuro</Text>
+              <Text>{t("darkMode")}</Text>
             </GridWithPadding>
             <GridWithPadding item xs={2} sx={{ textAlign: "right" }}>
               <Switch
@@ -66,19 +62,16 @@ const Settings = () => {
               <Icon src={chrome.runtime.getURL("icons/cheque128.png")} />
             </GridWithPadding>
             <GridWithPadding item xs={9}>
-              <Text>Habilitar botón flotante</Text>
+              <Text>{t("floatingButton")}</Text>
             </GridWithPadding>
             <GridWithPadding item xs={2} sx={{ textAlign: "right" }}>
-              <Switch
-                onChange={disableFloatingButton}
-                checked={floatingButton}
-              />
+              <SwitchFloatingButton />
             </GridWithPadding>
             <GridWithPadding item xs={1}>
               <Icon src={chrome.runtime.getURL("icons/accesibility.png")} />
             </GridWithPadding>
             <GridWithPadding item xs={8}>
-              <Text>Cambiar colores para accesibilidad</Text>
+              <Text>{t("changeColorsForAccesibility")}</Text>
             </GridWithPadding>
             <GridWithPadding item xs={3} sx={{ textAlign: "right" }}>
               <Select
@@ -87,10 +80,27 @@ const Settings = () => {
                 value={daltonicModeTheme.daltonicMode}
                 onChange={daltonicModeTheme.changeDaltonicMode}
                 sx={{ backgroundColor: "#FFF" }}>
-                <MenuItem value={0}>Ninguno</MenuItem>
-                <MenuItem value={1}>Deuteranopía</MenuItem>
-                <MenuItem value={2}>Protanopía</MenuItem>
-                <MenuItem value={3}>Tritanopía</MenuItem>
+                <MenuItem value={0}>{t("none")}</MenuItem>
+                <MenuItem value={1}>{t("deuteranopia")}</MenuItem>
+                <MenuItem value={2}>{t("protanopia")}</MenuItem>
+                <MenuItem value={3}>{t("tritanopia")}</MenuItem>
+              </Select>
+            </GridWithPadding>
+            <GridWithPadding item xs={1}>
+              <Icon src={chrome.runtime.getURL("icons/idioma.png")} />
+            </GridWithPadding>
+            <GridWithPadding item xs={8}>
+              <Text>{t("changeLanguage")}</Text>
+            </GridWithPadding>
+            <GridWithPadding item xs={3} sx={{ textAlign: "right" }}>
+              <Select
+                size="small"
+                autoWidth
+                defaultValue={i18n.language}
+                onChange={onChangeLang}
+                sx={{ backgroundColor: "#FFF" }}>
+                <MenuItem value="es">{t("spanish")}</MenuItem>
+                <MenuItem value="en">{t("english")}</MenuItem>
               </Select>
             </GridWithPadding>
           </Grid>

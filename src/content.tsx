@@ -12,7 +12,6 @@ window.addEventListener("mouseup", () => {
     chrome.storage.local.get("floatingButton").then((buttonState) => {
       if(buttonState.floatingButton === true) {
         showButton(AnimatedButton)
-        console.log("Botón mostrado")
       }
     })
   } else if (
@@ -21,7 +20,6 @@ window.addEventListener("mouseup", () => {
   ) {
     //Si se hace "mouseup", no hay nada algo seleccionado y además no se existe el botón, se crea el botón
     document.getElementById("button-container").remove()
-    console.log("Botón eliminado")
   }
 })
 

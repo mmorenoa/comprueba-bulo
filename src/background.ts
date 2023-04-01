@@ -7,21 +7,12 @@ chrome.runtime.onInstalled.addListener(() => {
     title: "Verificar texto",
     contexts: ["selection"]
   })
-  chrome.storage.local.set({ floatingButton: true }, () => {
-    chrome.storage.local.get("floatingButton", (data) => {
-      console.log("Botón flotante:" + data.floatingButton)
-    })
-  })
-  chrome.storage.local.set({ darkMode: false }, () => {
-    chrome.storage.local.get("darkMode", (data) => {
-      console.log("Modo oscuro:" + data.darkMode)
-    })
-  })
-  chrome.storage.local.set({ daltonicMode: 0 }, () => {
-    chrome.storage.local.get("daltonicMode", (data) => {
-      console.log("Modo de daltonismo:" + data.daltonicMode)
-    })
-  })
+  chrome.storage.local.set(
+    { floatingButton: true, darkMode: false, daltonicMode: 0, language: "es" },
+    () => {
+      console.log("Configuración por defecto.")
+    }
+  )
 })
 
 chrome.contextMenus.onClicked.addListener(() => {
@@ -40,8 +31,8 @@ chrome.runtime.onMessage.addListener((request) => {
       openOptions()
       break
     case "resize-window-for-options":
-      updateWindowSize(600, 255)
-    break
+      updateWindowSize(600, 300)
+      break
     default:
       break
   }
@@ -80,7 +71,7 @@ const openOptions = () => {
     url: "options.html",
     type: "popup",
     width: 600,
-    height: 250,
+    height: 300,
     top: 400,
     left: 800
   })

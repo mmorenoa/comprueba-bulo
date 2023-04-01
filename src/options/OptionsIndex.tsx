@@ -4,6 +4,8 @@ import { DaltonicModeThemeManager } from "../styles/accesibilityMode/Accesibilit
 import { DarkModeThemeManager } from "../styles/darkMode/DarkModeThemeContext"
 import Settings from "./Settings"
 
+import "../i18n"
+
 const OptionsIndex = () => {
   return (
     <DarkModeThemeManager>

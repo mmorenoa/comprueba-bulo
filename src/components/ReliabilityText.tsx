@@ -1,4 +1,5 @@
 import React, { useMemo } from "react"
+import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
 import { ThemeProvider } from "styled-components"
 
@@ -20,24 +21,26 @@ const ReliabilityText = ({ avg }: ReliabilityTextProps) => {
 
   const darkmode = useDarkModeTheme()
   const daltonicMode = useDaltonicModeTheme()
+  const { t } = useTranslation()
 
   const reliability: string = useMemo(() => {
-    if (avg < HIGH_THRESHOLD) return "Muy alta"
-    if (avg >= HIGH_THRESHOLD && avg < MID_HIDH_THRESHOLD) return "Media - alta"
-    if (avg >= MID_HIDH_THRESHOLD && avg < MID_THRESHOLD) return "Media"
-    return "Baja"
+    if (avg < HIGH_THRESHOLD) return t("veryHigh")
+    if (avg >= HIGH_THRESHOLD && avg < MID_HIDH_THRESHOLD)
+      return t("mediumHigh")
+    if (avg >= MID_HIDH_THRESHOLD && avg < MID_THRESHOLD) return t("medium")
+    return t("low")
   }, [avg])
 
   const reliabilityText: string = useMemo(() => {
     if (avg > 0) {
-      if (avg < HIGH_THRESHOLD) return "¡Información verídica!"
+      if (avg < HIGH_THRESHOLD) return t("trueInformation")
       if (avg >= HIGH_THRESHOLD && avg < MID_HIDH_THRESHOLD)
-        return "¡Información dudosa!"
+        return t("questionableInformation")
       if (avg >= MID_HIDH_THRESHOLD && avg < MID_THRESHOLD)
-        return "¡Información no muy fiable!"
-      return "¡Información falsa!"
+        return t("unreliableInformation")
+      return t("falseInformation")
     } else {
-      return "Requiere verificación manual"
+      return t("requiresManualVerification")
     }
   }, [avg])
 
@@ -58,7 +61,11 @@ const ReliabilityText = ({ avg }: ReliabilityTextProps) => {
     <ThemeProvider theme={darkmode}>
       <ThemeProvider theme={daltonicMode}>
         <TopBar color={color} />
-        <Link to={`/options`} onClick={() => chrome.runtime.sendMessage({ action: "resize-window-for-options" })}>
+        <Link
+          to={`/options`}
+          onClick={() =>
+            chrome.runtime.sendMessage({ action: "resize-window-for-options" })
+          }>
           <StyledBuildIcon />
         </Link>
         <TextContainer>
@@ -66,7 +73,7 @@ const ReliabilityText = ({ avg }: ReliabilityTextProps) => {
           {avg > 0 ? (
             <>
               <div>
-                <Text weight="400">Fiabilidad: </Text>
+                <Text weight="400">{t("reliability")}: </Text>
                 <Text color={color}>{reliability}</Text>
               </div>
             </>
