@@ -31,7 +31,7 @@ chrome.runtime.onMessage.addListener((request) => {
       openOptions()
       break
     case "resize-window-for-options":
-      updateWindowSize(600, 300)
+      updateWindowSize(630, 300)
       break
     default:
       break
@@ -70,7 +70,7 @@ const openOptions = () => {
   chrome.windows.create({
     url: "options.html",
     type: "popup",
-    width: 600,
+    width: 630,
     height: 300,
     top: 400,
     left: 800

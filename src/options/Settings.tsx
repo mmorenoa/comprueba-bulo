@@ -70,10 +70,10 @@ const Settings = () => {
             <GridWithPadding item xs={1}>
               <Icon src={chrome.runtime.getURL("icons/accesibility.png")} />
             </GridWithPadding>
-            <GridWithPadding item xs={8}>
+            <GridWithPadding item xs={7}>
               <Text>{t("changeColorsForAccesibility")}</Text>
             </GridWithPadding>
-            <GridWithPadding item xs={3} sx={{ textAlign: "right" }}>
+            <GridWithPadding item xs={4} sx={{ textAlign: "right" }}>
               <Select
                 size="small"
                 autoWidth
