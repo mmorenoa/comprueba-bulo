@@ -1,10 +1,11 @@
 import { createGlobalStyle } from "styled-components"
 
-import { textColor } from "./darkMode/darkModeThemeColors"
+import { backgroundColor, textColor } from "./darkMode/darkModeThemeColors"
 
 const GlobalStyle = createGlobalStyle`
   body {
     font-family: "Inter", sans-serif !important;
+    background-color: ${backgroundColor};
   }
   svg {
     color: ${textColor};

@@ -1,6 +1,6 @@
-import CloseIcon from "@mui/icons-material/Close"
-import BuildIcon from '@mui/icons-material/Build';
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined"
+import BuildIcon from "@mui/icons-material/Build"
+import CloseIcon from "@mui/icons-material/Close"
 import { Grid } from "@mui/material"
 import styled, { css } from "styled-components"
 
@@ -24,33 +24,31 @@ export const TextContainer = styled.div`
 `
 
 const ContainerStyles = css`
-  border: 2px solid;
-  border-radius: 22px;
   text-align: center;
   overflow: hidden;
-  position: relative;
-  padding-bottom: 2.3rem;
-  border-color: ${Colors.SecondaryText};
-  background-color: ${backgroundColor};
+  padding-bottom: 1.6rem;
 `
 
 export const Container = styled.div`
   ${ContainerStyles}
-  padding: 1rem 2.7rem;
 `
 
 export const LinkContainer = styled(Container)`
   ${ContainerStyles}
+  width: 85vw;
   padding: 0;
   text-align: left;
   background-color: ${linkContainerBackgroundColor};
+  border-radius: 20px;
+  box-shadow: 0px 4px 10px 0px #7a7a7a;
+  height: fit-content;
 `
 
 export const TopBar = styled.div`
   background-color: ${(props) => props.color || textColor};
   width: 100%;
   height: 0.3rem;
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
 `
@@ -68,6 +66,7 @@ export const LinkSubtitle = styled(LinkTitle)`
 export const LinkImage = styled.img`
   width: 100%;
   height: 60%;
+  border-radius: 20px 20px 0 0;
 `
 
 export const LinkTitleContainer = styled(Grid)`
@@ -81,6 +80,8 @@ export const LinkDateNameContainer = styled(Grid)`
 `
 
 export const HyperLink = styled.a`
+  display: flex;
+  justify-content: center;
   text-decoration: none;
 `
 
@@ -200,4 +201,8 @@ export const StyledBuildIcon = styled(BuildIcon)`
 `
 export const StyledBackIcon = styled(ArrowBackOutlinedIcon)`
   ${TopLeftIconsStyles}
+`
+export const HR = styled.hr`
+  width: 100vw;
+  border-top: 1px solid ${secondaryTextColor};
 `

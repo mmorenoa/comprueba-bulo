@@ -13,7 +13,7 @@ export const backgroundColor = theme("darkMode", {
 })
 
 export const linkContainerBackgroundColor = theme("darkMode", {
-  false: "#fff",
+  false: "#f5f5f5",
   true: Colors.DarkMode.LinkContainer
 })
 
