@@ -7,12 +7,12 @@ chrome.runtime.onInstalled.addListener(() => {
     title: "Verificar texto",
     contexts: ["selection"]
   })
-  chrome.storage.local.set({ floatingButton: true }, () => {
-    console.log("Botón flotante:" + true)
-  })
-  chrome.storage.local.set({ darkMode: false }, () => {
-    console.log("Tema por defecto: light")
-  })
+  chrome.storage.local.set(
+    { floatingButton: true, darkMode: false, daltonicMode: 0, language: "es" },
+    () => {
+      console.log("Configuración por defecto.")
+    }
+  )
 })
 
 chrome.contextMenus.onClicked.addListener(() => {
@@ -20,21 +20,21 @@ chrome.contextMenus.onClicked.addListener(() => {
 })
 
 chrome.runtime.onMessage.addListener((request) => {
-  if (request && request.action === "open-extension") {
-    openExtension()
-  }
-})
-
-chrome.runtime.onMessage.addListener((request) => {
-  if (request && request.action === "resize-window") {
-    updateWindowSize(600, 460)
-  }
-})
-
-
-chrome.runtime.onMessage.addListener((request) => {
-  if (request && request.action === "open-options") {
-    openOptions()
+  switch (request && request.action) {
+    case "open-extension":
+      openExtension()
+      break
+    case "resize-window-for-loading":
+      updateWindowSize(600, 460)
+      break
+    case "open-options":
+      openOptions()
+      break
+    case "resize-window-for-options":
+      updateWindowSize(630, 300)
+      break
+    default:
+      break
   }
 })
 
@@ -59,7 +59,7 @@ const openExtension = () =>
     chrome.windows.create({
       url: "popup.html",
       type: "popup",
-      width: 600,
+      width: 700,
       height: 170,
       top: 400,
       left: 800
@@ -70,8 +70,8 @@ const openOptions = () => {
   chrome.windows.create({
     url: "options.html",
     type: "popup",
-    width: 384,
-    height: 160,
+    width: 630,
+    height: 300,
     top: 400,
     left: 800
   })

@@ -1,72 +1,93 @@
-import PropTypes from "prop-types"
 import React, { useMemo } from "react"
+import { useTranslation } from "react-i18next"
+import { Link } from "react-router-dom"
+import { ThemeProvider } from "styled-components"
 
-import { Colors } from "./styles/colors"
-import { Text, TextContainer, TopBar } from "./styles/styled"
+import { useDaltonicModeTheme } from "../styles/accesibilityMode/AccesibilityThemeContext"
+import {
+  greenReliability,
+  orangeReliability,
+  redReliability,
+  yellowReliability
+} from "../styles/accesibilityMode/accesibilityModeThemeColors"
+import { useDarkModeTheme } from "../styles/darkMode/DarkModeThemeContext"
+import { textColor } from "../styles/darkMode/darkModeThemeColors"
+import { StyledBuildIcon, Text, TextContainer, TopBar } from "../styles/styled"
 
-const ReliabilityText = (props) => {
+const ReliabilityText = ({ avg }: ReliabilityTextProps) => {
   const HIGH_THRESHOLD = 0.1
   const MID_HIDH_THRESHOLD = 0.44
   const MID_THRESHOLD = 0.75
 
-  const reliability = useMemo(() => {
-    if (props.avg < HIGH_THRESHOLD) return "Muy alta"
-    if (props.avg >= HIGH_THRESHOLD && props.avg < MID_HIDH_THRESHOLD)
-      return "Media - alta"
-    if (props.avg >= MID_HIDH_THRESHOLD && props.avg < MID_THRESHOLD)
-      return "Media"
-    return "Baja"
-  }, [props.avg])
+  const darkmode = useDarkModeTheme()
+  const daltonicMode = useDaltonicModeTheme()
+  const { t } = useTranslation()
 
-  const reliabilityText = useMemo(() => {
-    if (props.avg > 0) {
-      if (props.avg < HIGH_THRESHOLD) return "¡Información verídica!"
-      if (props.avg >= HIGH_THRESHOLD && props.avg < MID_HIDH_THRESHOLD)
-        return "¡Información dudosa!"
-      if (props.avg >= MID_HIDH_THRESHOLD && props.avg < MID_THRESHOLD)
-        return "¡Información no muy fiable!"
-      return "¡Información falsa!"
+  const reliability: string = useMemo(() => {
+    if (avg < HIGH_THRESHOLD) return t("veryHigh")
+    if (avg >= HIGH_THRESHOLD && avg < MID_HIDH_THRESHOLD)
+      return t("mediumHigh")
+    if (avg >= MID_HIDH_THRESHOLD && avg < MID_THRESHOLD) return t("medium")
+    return t("low")
+  }, [avg])
+
+  const reliabilityText: string = useMemo(() => {
+    if (avg > 0) {
+      if (avg < HIGH_THRESHOLD) return t("trueInformation")
+      if (avg >= HIGH_THRESHOLD && avg < MID_HIDH_THRESHOLD)
+        return t("questionableInformation")
+      if (avg >= MID_HIDH_THRESHOLD && avg < MID_THRESHOLD)
+        return t("unreliableInformation")
+      return t("falseInformation")
     } else {
-      return
+      return t("requiresManualVerification")
     }
-  }, [props.avg])
+  }, [avg])
 
-  const color = useMemo(() => {
-    if (props.avg < HIGH_THRESHOLD) return Colors.Green
-    if (props.avg >= HIGH_THRESHOLD && props.avg < MID_HIDH_THRESHOLD)
-      return Colors.Yellow
-    if (props.avg >= MID_HIDH_THRESHOLD && props.avg < MID_THRESHOLD)
-      return Colors.Orange
-    return Colors.Red
-  }, [props.avg])
+  const color: string = useMemo(() => {
+    if (avg > 0) {
+      if (avg < HIGH_THRESHOLD) return greenReliability
+      if (avg >= HIGH_THRESHOLD && avg < MID_HIDH_THRESHOLD)
+        return yellowReliability
+      if (avg >= MID_HIDH_THRESHOLD && avg < MID_THRESHOLD)
+        return orangeReliability
+      return redReliability
+    } else {
+      return textColor
+    }
+  }, [avg, darkmode, daltonicMode])
 
   return (
-    <div>
-      {props.avg > 0 ? (
-        <>
-          <TopBar color={color} />
-          <TextContainer>
-            <Text>{reliabilityText}</Text>
-            <div>
-              <Text weight="400">Fiabilidad: </Text>
-              <Text color={color}>{reliability}</Text>
-            </div>
-          </TextContainer>
-        </>
-      ) : (
-        <>
-          <TopBar />
-          <TextContainer>
-            <Text>Requiere verificación manual</Text>
-          </TextContainer>
-        </>
-      )}
-    </div>
+    <ThemeProvider theme={darkmode}>
+      <ThemeProvider theme={daltonicMode}>
+        <TopBar color={color} />
+        <Link
+          to={`/options.html`}
+          onClick={() =>
+            chrome.runtime.sendMessage({ action: "resize-window-for-options" })
+          }>
+          <StyledBuildIcon />
+        </Link>
+        <TextContainer>
+          <Text>{reliabilityText}</Text>
+          {avg > 0 ? (
+            <>
+              <div>
+                <Text weight="400">{t("reliability")}: </Text>
+                <Text color={color}>{reliability}</Text>
+              </div>
+            </>
+          ) : (
+            ""
+          )}
+        </TextContainer>
+      </ThemeProvider>
+    </ThemeProvider>
   )
 }
 
-ReliabilityText.propTypes = {
-  avg: PropTypes.number
+interface ReliabilityTextProps {
+  avg: number
 }
 
 export default ReliabilityText

@@ -1,14 +1,23 @@
 import React from "react"
+import { RouterProvider, createBrowserRouter } from "react-router-dom"
 
-import { ThemeManager } from "../components/styles/ThemeContext"
-import Settings from "./Settings"
+import PopupIndex from "../popup/PopupIndex"
+import OptionsIndex from "./OptionsIndex"
 
-const OptionsIndex = () => {
-  return (
-    <ThemeManager>
-      <Settings />
-    </ThemeManager>
-  )
+const router = createBrowserRouter([
+  {
+    index: true,
+    path: "/options.html",
+    element: <OptionsIndex />
+  },
+  {
+    path: "/popup.html",
+    element: <PopupIndex />
+  }
+])
+
+const Routes = () => {
+  return <RouterProvider router={router} />
 }
 
-export default OptionsIndex
+export default Routes

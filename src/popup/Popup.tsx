@@ -1,14 +1,16 @@
 /* chrome global */
 
+import CircularProgress from "@mui/material/CircularProgress"
 import React, { useEffect, useState } from "react"
 import { ThemeProvider } from "styled-components"
 
-import { useTheme } from "~src/components/styles/ThemeContext"
+import { useDaltonicModeTheme } from "../styles/accesibilityMode/AccesibilityThemeContext"
 
 import ReliabilityText from "../components/ReliabilityText"
 import Section from "../components/Section"
-import GlobalStyle from "../components/styles/GlobalStyle"
-import { Container, Spinner } from "../components/styles/styled"
+import GlobalStyle from "../styles/GlobalStyle"
+import { useDarkModeTheme } from "../styles/darkMode/DarkModeThemeContext"
+import { Container } from "../styles/styled"
 
 const Popup = () => {
   const [avg, setAvg] = useState(undefined)
@@ -16,14 +18,15 @@ const Popup = () => {
 
   useEffect(() => {
     chrome.storage.local.get("lastText", (data) => {
-      fetch(
+      /*fetch(
         "http://g1.etsisi.upm.es:8835/fact_checking/entailment?" +
           new URLSearchParams({
             text: data.lastText
           }), {
             mode: 'no-cors'
           }
-      )
+      )*/
+      fetch("local-json-responses/respuesta agua caliente.json")
         .then((response) => response.json())
         .then((json) => {
           manageEntailmentData(json.Entailment_hoaxes)
@@ -44,7 +47,7 @@ const Popup = () => {
           avgValues.reduce((previous, current) => (current += previous)) /
           avgValues.length
         setAvg(avgResult)
-        chrome.runtime.sendMessage({ action: "resize-window" })
+        chrome.runtime.sendMessage({ action: "resize-window-for-loading" })
       }
       setFactCheckers(arr)
     } else {
@@ -53,21 +56,25 @@ const Popup = () => {
   }
 
   const isLoading = avg === undefined
-  const theme = useTheme()
+
+  const darkModeTheme = useDarkModeTheme()
+  const daltonicModeTheme = useDaltonicModeTheme()
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container>
-        <GlobalStyle />
-        {isLoading ? (
-          <Spinner />
-        ) : (
-          <>
-            <ReliabilityText avg={avg} />
-            {avg > 0 ? <Section content={factCheckers} /> : ""}
-          </>
-        )}
-      </Container>
+    <ThemeProvider theme={darkModeTheme}>
+      <ThemeProvider theme={daltonicModeTheme}>
+        <Container>
+          <GlobalStyle />
+          {isLoading ? (
+            <CircularProgress />
+          ) : (
+            <>
+              <ReliabilityText avg={avg} />
+              {avg > 0 ? <Section newsArray={factCheckers} /> : ""}
+            </>
+          )}
+        </Container>
+      </ThemeProvider>
     </ThemeProvider>
   )
 }
