@@ -4,11 +4,10 @@ import CircularProgress from "@mui/material/CircularProgress"
 import React, { useEffect, useState } from "react"
 import { ThemeProvider } from "styled-components"
 
-import { useDaltonicModeTheme } from "../styles/accesibilityMode/AccesibilityThemeContext"
-
 import ReliabilityText from "../components/ReliabilityText"
 import Section from "../components/Section"
 import GlobalStyle from "../styles/GlobalStyle"
+import { useDaltonicModeTheme } from "../styles/accesibilityMode/AccesibilityThemeContext"
 import { useDarkModeTheme } from "../styles/darkMode/DarkModeThemeContext"
 import { Container } from "../styles/styled"
 
@@ -18,15 +17,15 @@ const Popup = () => {
 
   useEffect(() => {
     chrome.storage.local.get("lastText", (data) => {
-      /*fetch(
+      fetch(
         "http://g1.etsisi.upm.es:8835/fact_checking/entailment?" +
           new URLSearchParams({
             text: data.lastText
-          }), {
-            mode: 'no-cors'
-          }
-      )*/
-      fetch("local-json-responses/respuesta agua caliente.json")
+          }),
+        {
+          mode: "no-cors"
+        }
+      )
         .then((response) => response.json())
         .then((json) => {
           manageEntailmentData(json.Entailment_hoaxes)
