@@ -16,7 +16,7 @@ const LinkPreview = ({link: {url, name, date}}: linkProps) => {
   const [title, setTitle] = useState(undefined)
   const [image, setImage] = useState(undefined)
 
-  /*useEffect(() => {
+  useEffect(() => {
     fetch(
       "https://api.microlink.io/?" +
         new URLSearchParams({
@@ -28,7 +28,7 @@ const LinkPreview = ({link: {url, name, date}}: linkProps) => {
         setTitle(json.data.title)
         setImage(json.data.image.url)
       })
-  }, [title, image])*/
+  }, [title, image])
 
   const getAgeOfNew = (date) => {
     const dateValues = date.split("/")
@@ -62,12 +62,11 @@ const LinkPreview = ({link: {url, name, date}}: linkProps) => {
     <HyperLink href={url} target="_blank" rel="noreferrer">
       <ThemeProvider theme={customBreakpoints}>
         <LinkContainer>
-          <LinkImage src="icons/Publicacio--n-falsa-mascarillas.png" />
+          <LinkImage src={image} />
           <Grid container>
             <LinkTitleContainer item xs={12}>
               <LinkTitle>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry.
+                {title}
               </LinkTitle>
             </LinkTitleContainer>
             <LinkDateNameContainer item xs={12}>

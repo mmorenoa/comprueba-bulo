@@ -16,7 +16,7 @@
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.15",
     "i18next": "^22.4.13",
-    "plasmo": "^0.67.4",
+    "plasmo": "^0.75.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-i18next": "^12.2.0",
